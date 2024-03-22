@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weightburner_119/assessment/pages/assess_gender_screen.dart';
+import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
 import 'package:weightburner_119/core/con_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
@@ -41,9 +43,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const WbBottomBar(
-                              indexScr: 0,
-                            ),
+                            builder: (context) => const AssessNameScreen(),
                           ),
                           (protected) => false,
                         );
@@ -113,15 +113,23 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   SizedBox(height: 20.h),
                   WbMotion(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WbBottomBar(
-                            indexScr: 0,
+                      if (widget.isClose) {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WbBottomBar(),
                           ),
-                        ),
-                        (protected) => false,
-                      );
+                          (protected) => false,
+                        );
+                      } else {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AssessNameScreen(),
+                          ),
+                          (protected) => false,
+                        );
+                      }
                     },
                     child: Container(
                       height: 52.h,

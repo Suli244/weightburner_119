@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/settings/profile/profile.dart';
 import 'package:weightburner_119/settings/widget/settings_item_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -55,7 +56,14 @@ class SettingsScreen extends StatelessWidget {
             SetItWid(
               imageSetti: 'assets/icons/profile.svg',
               text: 'My profile',
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Profile(),
+                  ),
+                );
+              },
               isPaddin: true,
               iconHeg: 25.h,
             ),
