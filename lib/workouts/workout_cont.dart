@@ -267,6 +267,25 @@ List<WorkoutsCont> listGym = [
     min: 25,
     podr: [
       Podr(
+        title: 'Burpees:',
+        min: 5,
+        kcal: 150,
+        dis:
+            '''Stand with your feet shoulder-width apart, then squat down and place your hands on the ground. Jump your feet back into a plank position, perform a push-up if desired, then jump your feet back towards.''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
         title: '',
         min: 0,
         kcal: 0,
@@ -279,6 +298,36 @@ List<WorkoutsCont> listGym = [
     title: 'Cardiovascular workout',
     min: 27,
     podr: [
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
+      Podr(
+        title: '',
+        min: 0,
+        kcal: 0,
+        dis: '''''',
+      ),
       Podr(
         title: '',
         min: 0,
