@@ -1,6 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:weightburner_119/challenges/widget/two_cat_widget.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
+import 'package:weightburner_119/core/wb_motin.dart';
 
 class ChallengesScreen extends StatelessWidget {
   const ChallengesScreen({super.key});
@@ -21,14 +25,16 @@ class ChallengesScreen extends StatelessWidget {
         ),
         centerTitle: false,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24.w),
         child: Column(
           children: [
-            Container(),
+            SizedBox(height: 12.h),
+            TwoCatWidg()
           ],
         ),
       ),
     );
   }
 }
+

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data_box.dart';
+import 'package:weightburner_119/core/con_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
@@ -40,7 +41,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      child: const SplashScreen(),
+      child: const WbBottomBar(),// SplashScreen(),
     );
   }
 }
