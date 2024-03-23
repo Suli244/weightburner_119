@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,9 @@ import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
 import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
 import 'package:weightburner_119/challenges/logic/repositories/challenges_repo.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
+import 'package:weightburner_119/core/wb_motin.dart';
+import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
 class ChallengesWidget extends StatefulWidget {
   const ChallengesWidget({
@@ -48,11 +52,282 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Container(
+    return FutureBuilder(
+        future: getWeightburnerPinjcdv(),
+        builder: (context, snapshot) {
+          bool chek = snapshot.data ?? false;
+          return ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return CallenddddWwww(
+                  model: widget.model[index],
+                  onTTT: widget.onTTT,
+                  bloc: bloc,
+                  chelP: index > 2 && !chek,
+                );
+              },
+              separatorBuilder: (_, i) => SizedBox(height: 16.h),
+              itemCount: widget.model.length);
+        });
+  }
+}
+
+class CallenddddWwww extends StatelessWidget {
+  const CallenddddWwww({
+    super.key,
+    required this.model,
+    required this.onTTT,
+    required this.bloc,
+    required this.chelP,
+  });
+
+  final ChallengesContent model;
+  final ValueChanged onTTT;
+  final ChallengesCubit bloc;
+  final bool chelP;
+  @override
+  Widget build(BuildContext context) {
+    return chelP
+        ? Stack(
+            children: [
+              Opacity(
+                opacity: 0.5,
+                child: ImageFiltered(
+                  imageFilter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: IgnorePointer(
+                    child: Container(
+                      padding: EdgeInsets.all(12.r),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  model.title,
+                                  style: TextStyle(
+                                    fontSize: 16.h,
+                                    fontWeight: FontWeight.w500,
+                                    color: WbColors.black,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 25.w),
+                              Image.asset(model.image, width: 40.w)
+                            ],
+                          ),
+                          SizedBox(height: 4.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  model.status,
+                                  style: TextStyle(
+                                    fontSize: 12.h,
+                                    fontWeight: FontWeight.w500,
+                                    color: WbColors.blue009AFF,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 25.w),
+                              Text(
+                                '${model.daysLeft}/${model.daysPassed}',
+                                style: TextStyle(
+                                  fontSize: 12.h,
+                                  fontWeight: FontWeight.w500,
+                                  color: WbColors.blue009AFF,
+                                ),
+                              ),
+                              SizedBox(width: 10.w),
+                            ],
+                          ),
+                          SizedBox(height: 10.h),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: SingleChildScrollView(
+                              child: SizedBox(
+                                height: 62.h,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, innerIndex) {
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8.r, vertical: 4.r),
+                                      decoration: BoxDecoration(
+                                          color: model.daysLeft == innerIndex
+                                              ? WbColors.blue009AFF
+                                              : model.daysLeft > innerIndex
+                                                  ? Colors.transparent
+                                                  : Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(12.r)),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            height: 24.h,
+                                            width: 24.w,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: model.daysLeft ==
+                                                      innerIndex
+                                                  ? Colors.transparent
+                                                  : model.daysLeft > innerIndex
+                                                      ? WbColors.blue009AFF
+                                                      : Colors.transparent,
+                                              border: Border.all(
+                                                width: 2,
+                                                color: model.daysLeft ==
+                                                        innerIndex
+                                                    ? WbColors.white
+                                                    : model.daysLeft >
+                                                            innerIndex
+                                                        ? WbColors.blue009AFF
+                                                        : WbColors.black
+                                                            .withOpacity(0.6),
+                                              ),
+                                            ),
+                                            child: model.daysLeft > innerIndex
+                                                ? Center(
+                                                    child: Icon(
+                                                      Icons.check,
+                                                      size: 20.r,
+                                                      color: WbColors.white,
+                                                    ),
+                                                  )
+                                                : const SizedBox(),
+                                          ),
+                                          SizedBox(height: 6.h),
+                                          Text(
+                                            '${innerIndex + 1}',
+                                            style: TextStyle(
+                                              fontSize: 16.h,
+                                              fontWeight: FontWeight.w500,
+                                              color: model.daysLeft ==
+                                                      innerIndex
+                                                  ? WbColors.whitEEEAEA
+                                                  : model.daysLeft > innerIndex
+                                                      ? WbColors.black
+                                                          .withOpacity(0.6)
+                                                      : WbColors.black
+                                                          .withOpacity(0.6),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  separatorBuilder: (_, innerIndex) =>
+                                      SizedBox(width: 16.w),
+                                  itemCount: model.daysPassed,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 14.h),
+                          BlocProvider.value(
+                            value: bloc,
+                            child: IgnorePointer(
+                              ignoring: !model.chekDay,
+                              child: SwipeButton(
+                                thumbPadding: EdgeInsets.all(2.r),
+                                borderRadius: BorderRadius.circular(32.r),
+                                height: 56.h,
+                                thumb: model.chekDay == true
+                                    ? Image.asset('assets/images/skrrbbb.png')
+                                    : Image.asset(
+                                        'assets/images/skrrbbbFalse.png'),
+                                activeTrackColor: model.chekDay == true
+                                    ? WbColors.blue009AFF
+                                    : WbColors.blue009AFF.withOpacity(0.6),
+                                onSwipe: model.chekDay == true
+                                    ? () async {
+                                        int sss = model.daysLeft;
+                                        if (model.daysLeft >=
+                                            model.daysPassed) {
+                                          sss = 0;
+                                        } else {
+                                          sss = sss + 1;
+                                        }
+                                        await bloc.saveChallengeButton(
+                                            model.id, sss);
+                                        onTTT('');
+                                      }
+                                    : () {},
+                                child: Center(
+                                  child: Text(
+                                    "Complete day ${model.daysLeft + 1}",
+                                    style: TextStyle(
+                                      fontSize: 16.h,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned.fill(
+                child: Center(
+                  child: WbMotion(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const PremiumScreen(isClose: true),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 52.h,
+                      width: 263.w,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(32).r,
+                        color: WbColors.blue009AFF,
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Buy Premium for \$0,99',
+                          style: TextStyle(
+                            fontSize: 16.h,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            height: 0,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 12,
+                right: 12,
+                child: Image.asset('assets/images/proPrem.png', width: 48, height: 24))
+            ],
+          )
+        : Container(
             padding: EdgeInsets.all(12.r),
             decoration: BoxDecoration(
               boxShadow: [
@@ -73,7 +348,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.model[index].title,
+                        model.title,
                         style: TextStyle(
                           fontSize: 16.h,
                           fontWeight: FontWeight.w500,
@@ -82,7 +357,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                       ),
                     ),
                     SizedBox(width: 25.w),
-                    Image.asset(widget.model[index].image, width: 40.w)
+                    Image.asset(model.image, width: 40.w)
                   ],
                 ),
                 SizedBox(height: 4.h),
@@ -91,7 +366,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                   children: [
                     Expanded(
                       child: Text(
-                        widget.model[index].status,
+                        model.status,
                         style: TextStyle(
                           fontSize: 12.h,
                           fontWeight: FontWeight.w500,
@@ -101,7 +376,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                     ),
                     SizedBox(width: 25.w),
                     Text(
-                      '${widget.model[index].daysLeft}/${widget.model[index].daysPassed}',
+                      '${model.daysLeft}/${model.daysPassed}',
                       style: TextStyle(
                         fontSize: 12.h,
                         fontWeight: FontWeight.w500,
@@ -125,10 +400,9 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8.r, vertical: 4.r),
                             decoration: BoxDecoration(
-                                color: widget.model[index].daysLeft ==
-                                        innerIndex
+                                color: model.daysLeft == innerIndex
                                     ? WbColors.blue009AFF
-                                    : widget.model[index].daysLeft > innerIndex
+                                    : model.daysLeft > innerIndex
                                         ? Colors.transparent
                                         : Colors.transparent,
                                 borderRadius: BorderRadius.circular(12.r)),
@@ -139,34 +413,29 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                                   width: 24.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: widget.model[index].daysLeft ==
-                                            innerIndex
+                                    color: model.daysLeft == innerIndex
                                         ? Colors.transparent
-                                        : widget.model[index].daysLeft >
-                                                innerIndex
+                                        : model.daysLeft > innerIndex
                                             ? WbColors.blue009AFF
                                             : Colors.transparent,
                                     border: Border.all(
                                       width: 2,
-                                      color: widget.model[index].daysLeft ==
-                                              innerIndex
+                                      color: model.daysLeft == innerIndex
                                           ? WbColors.white
-                                          : widget.model[index].daysLeft >
-                                                  innerIndex
+                                          : model.daysLeft > innerIndex
                                               ? WbColors.blue009AFF
                                               : WbColors.black.withOpacity(0.6),
                                     ),
                                   ),
-                                  child:
-                                      widget.model[index].daysLeft > innerIndex
-                                          ? Center(
-                                              child: Icon(
-                                                Icons.check,
-                                                size: 20.r,
-                                                color: WbColors.white,
-                                              ),
-                                            )
-                                          : const SizedBox(),
+                                  child: model.daysLeft > innerIndex
+                                      ? Center(
+                                          child: Icon(
+                                            Icons.check,
+                                            size: 20.r,
+                                            color: WbColors.white,
+                                          ),
+                                        )
+                                      : const SizedBox(),
                                 ),
                                 SizedBox(height: 6.h),
                                 Text(
@@ -174,11 +443,9 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                                   style: TextStyle(
                                     fontSize: 16.h,
                                     fontWeight: FontWeight.w500,
-                                    color: widget.model[index].daysLeft ==
-                                            innerIndex
+                                    color: model.daysLeft == innerIndex
                                         ? WbColors.whitEEEAEA
-                                        : widget.model[index].daysLeft >
-                                                innerIndex
+                                        : model.daysLeft > innerIndex
                                             ? WbColors.black.withOpacity(0.6)
                                             : WbColors.black.withOpacity(0.6),
                                   ),
@@ -189,7 +456,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                         },
                         separatorBuilder: (_, innerIndex) =>
                             SizedBox(width: 16.w),
-                        itemCount: widget.model[index].daysPassed,
+                        itemCount: model.daysPassed,
                       ),
                     ),
                   ),
@@ -198,34 +465,32 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                 BlocProvider.value(
                   value: bloc,
                   child: IgnorePointer(
-                    ignoring: !widget.model[index].chekDay,
+                    ignoring: !model.chekDay,
                     child: SwipeButton(
                       thumbPadding: EdgeInsets.all(2.r),
                       borderRadius: BorderRadius.circular(32.r),
                       height: 56.h,
-                      thumb: widget.model[index].chekDay == true
+                      thumb: model.chekDay == true
                           ? Image.asset('assets/images/skrrbbb.png')
                           : Image.asset('assets/images/skrrbbbFalse.png'),
-                      activeTrackColor: widget.model[index].chekDay == true
+                      activeTrackColor: model.chekDay == true
                           ? WbColors.blue009AFF
                           : WbColors.blue009AFF.withOpacity(0.6),
-                      onSwipe: widget.model[index].chekDay == true
+                      onSwipe: model.chekDay == true
                           ? () async {
-                              int sss = widget.model[index].daysLeft;
-                              if (widget.model[index].daysLeft >=
-                                  widget.model[index].daysPassed) {
+                              int sss = model.daysLeft;
+                              if (model.daysLeft >= model.daysPassed) {
                                 sss = 0;
                               } else {
                                 sss = sss + 1;
                               }
-                              await bloc.saveChallengeButton(
-                                  widget.model[index].id, sss);
-                              widget.onTTT('');
+                              await bloc.saveChallengeButton(model.id, sss);
+                              onTTT('');
                             }
                           : () {},
                       child: Center(
                         child: Text(
-                          "Complete day ${widget.model[index].daysLeft + 1}",
+                          "Complete day ${model.daysLeft + 1}",
                           style: TextStyle(
                             fontSize: 16.h,
                             fontWeight: FontWeight.w700,
@@ -239,8 +504,5 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
               ],
             ),
           );
-        },
-        separatorBuilder: (_, i) => SizedBox(height: 16.h),
-        itemCount: widget.model.length);
   }
 }
