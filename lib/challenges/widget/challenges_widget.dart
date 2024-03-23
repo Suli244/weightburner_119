@@ -116,7 +116,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                   alignment: Alignment.centerLeft,
                   child: SingleChildScrollView(
                     child: SizedBox(
-                      height: 61.h,
+                      height: 62.h,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
@@ -225,7 +225,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                           : () {},
                       child: Center(
                         child: Text(
-                          "Complete day ${widget.model[index].daysLeft+1}",
+                          "Complete day ${widget.model[index].daysLeft + 1}",
                           style: TextStyle(
                             fontSize: 16.h,
                             fontWeight: FontWeight.w700,

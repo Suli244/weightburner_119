@@ -31,11 +31,20 @@ class _WorkoutStartState extends State<WorkoutStart> {
 
   int exercises = 0;
   int calories = 0;
+  int dayCal = 0;
+
+  Future<void> _loadCompletedDays() async {
+    int day = await getDay();
+    setState(() {
+      dayCal = day;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
     sssavihb();
+    _loadCompletedDays();
     startTimerStart();
     totalSecondsMain = widget.model.podr[currantPage].min * 60;
     controller.addListener(() {
@@ -61,7 +70,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
 
   int secondsStart = 0;
   Future<void> startTimerStart() async {
-    secondsStart = 3;
+    secondsStart = 1;
     timerStart = Timer.periodic(
       oneSecStart,
       (Timer timer) {
@@ -116,10 +125,11 @@ class _WorkoutStartState extends State<WorkoutStart> {
               if (secondMain <= 0) {
                 timer.cancel();
                 _isRunning = false;
+                isActive = true;
                 if (currantPage < widget.model.podr.length - 1) {
-                  controller.nextPage(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeIn);
+                  // controller.nextPage(
+                  //     duration: const Duration(milliseconds: 300),
+                  //     curve: Curves.easeIn);
                 } else {}
               }
             });
@@ -150,6 +160,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
     startTimerMain();
   }
 
+  bool isActive = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -262,35 +273,41 @@ class _WorkoutStartState extends State<WorkoutStart> {
                       SizedBox(height: 12.h),
                       WbMotion(
                         onPressed: () async {
-                          if (currantPage == widget.model.podr.length - 1) {
-                            timerMain.cancel();
-                            Navigator.pushAndRemoveUntil(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (_, __, ___) =>
-                                    const WbBottomBar(),
-                                transitionsBuilder: (context, animation,
-                                    secondaryAnimation, child) {
-                                  const begin = Offset(-1.0, 0.0);
-                                  const end = Offset.zero;
-                                  const curve = Curves.easeInOut;
-                                  var tween = Tween(begin: begin, end: end)
-                                      .chain(CurveTween(curve: curve));
-                                  var offsetAnimation = animation.drive(tween);
-                                  return SlideTransition(
-                                      position: offsetAnimation, child: child);
-                                },
-                              ),
-                              (route) => false,
-                            );
-                            calories =
-                                calories + widget.model.podr[currantPage].kcal;
-                            await setCalories(calories);
-                          } else {
-                            controller.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.ease,
-                            );
+                          if (isActive) {
+                            if (currantPage == widget.model.podr.length - 1) {
+                              dayCal = dayCal + 1;
+                              await setDay(dayCal);
+                              timerMain.cancel();
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) =>
+                                      const WbBottomBar(),
+                                  transitionsBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    const begin = Offset(-1.0, 0.0);
+                                    const end = Offset.zero;
+                                    const curve = Curves.easeInOut;
+                                    var tween = Tween(begin: begin, end: end)
+                                        .chain(CurveTween(curve: curve));
+                                    var offsetAnimation =
+                                        animation.drive(tween);
+                                    return SlideTransition(
+                                        position: offsetAnimation,
+                                        child: child);
+                                  },
+                                ),
+                                (route) => false,
+                              );
+                              calories = calories +
+                                  widget.model.podr[currantPage].kcal;
+                              await setCalories(calories);
+                            } else {
+                              controller.nextPage(
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.ease,
+                              );
+                            }
                           }
                         },
                         child: Container(
@@ -298,7 +315,9 @@ class _WorkoutStartState extends State<WorkoutStart> {
                           height: 52.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32),
-                            color: WbColors.blue009AFF,
+                            color: isActive
+                                ? WbColors.blue009AFF
+                                : WbColors.blue009AFF.withOpacity(0.6),
                           ),
                           child: Center(
                             child: Text(

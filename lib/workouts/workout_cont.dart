@@ -33,7 +33,7 @@ List<WorkoutsCont> listHome = [
     podr: [
       Podr(
         title: 'Reverse Crunches:',
-        min: 3,
+        min: 1,
         kcal: 120,
         dis:
             '''Lie on your back with your knees bent and feet lifted off the floor, creating a 90-degree angle with your hips and knees. Engage your core and lift your hips off the ground towards your chest, then slowly lower them back down. Repeat.''',

@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
-import 'package:weightburner_119/core/wb_motin.dart';
-
-enum Day { M, T, W, Th, F, S, Sn }
 
 class ActivityWidget extends StatefulWidget {
   const ActivityWidget({
@@ -18,8 +15,7 @@ class ActivityWidget extends StatefulWidget {
 }
 
 class _ActivityWidgetState extends State<ActivityWidget> {
-  Map<Day, bool> completedDays = {}; // Map to store completed days
-
+  int dayCal = 0;
   @override
   void initState() {
     super.initState();
@@ -27,18 +23,10 @@ class _ActivityWidgetState extends State<ActivityWidget> {
   }
 
   Future<void> _loadCompletedDays() async {
-    final prefs = await SharedPreferences.getInstance();
-    for (final day in Day.values) {
-      completedDays[day] = prefs.getBool(day.name) ?? false;
-    }
-  }
-
-  Future<void> _markDayCompleted(Day day) async {
+    int day = await getDay();
     setState(() {
-      completedDays[day] = true;
+      dayCal = day;
     });
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(day.name, true);
   }
 
   @override
@@ -72,17 +60,87 @@ class _ActivityWidgetState extends State<ActivityWidget> {
           ),
           SizedBox(height: 8.h),
           //////////Calendar//////////////
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     children: Day.values.map((day) {
+          //       final isCompleted = completedDays[day] ?? false;
+          //       return CalendarDay(
+          //         day: day,
+          //         isCompleted: isCompleted,
+          //         onMarkCompleted: () => _markDayCompleted(day),
+          //       );
+          //     }).toList(),
+          //   ),
+          // ),
           SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: Day.values.map((day) {
-                final isCompleted = completedDays[day] ?? false;
-                return CalendarDay(
-                  day: day,
-                  isCompleted: isCompleted,
-                  onMarkCompleted: () => _markDayCompleted(day),
-                );
-              }).toList(),
+            child: SizedBox(
+              height: 62.h,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (context, innerIndex) {
+                  return Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.r, vertical: 4.r),
+                    decoration: BoxDecoration(
+                        color: dayCal == innerIndex
+                            ? WbColors.blue009AFF
+                            : dayCal > innerIndex
+                                ? Colors.transparent
+                                : Colors.transparent,
+                        borderRadius: BorderRadius.circular(12.r)),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 24.h,
+                          width: 24.w,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: dayCal == innerIndex
+                                ? Colors.transparent
+                                : dayCal > innerIndex
+                                    ? WbColors.blue009AFF
+                                    : Colors.transparent,
+                            border: Border.all(
+                              width: 2,
+                              color: dayCal == innerIndex
+                                  ? WbColors.white
+                                  : dayCal > innerIndex
+                                      ? WbColors.blue009AFF
+                                      : WbColors.black.withOpacity(0.6),
+                            ),
+                          ),
+                          child: dayCal > innerIndex
+                              ? Center(
+                                  child: Icon(
+                                    Icons.check,
+                                    size: 20.r,
+                                    color: WbColors.white,
+                                  ),
+                                )
+                              : const SizedBox(),
+                        ),
+                        SizedBox(height: 6.h),
+                        Text(
+                          listDays[innerIndex],
+                          style: TextStyle(
+                            fontSize: 16.h,
+                            fontWeight: FontWeight.w500,
+                            color: dayCal == innerIndex
+                                ? WbColors.whitEEEAEA
+                                : dayCal > innerIndex
+                                    ? WbColors.black.withOpacity(0.6)
+                                    : WbColors.black.withOpacity(0.6),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                separatorBuilder: (_, innerIndex) => SizedBox(width: 16.w),
+                itemCount: listDays.length,
+              ),
             ),
           ),
           SizedBox(height: 16.h),
@@ -161,61 +219,17 @@ class _ActivityWidgetState extends State<ActivityWidget> {
   }
 }
 
+List<String> listDays = [
+  'Sn',
+  'M',
+  'T',
+  'W',
+  'Th',
+  'F',
+  'S',
+];
 int getRandomSteps() {
   return Random().nextInt(2500 - 200) + 200;
-}
-
-class CalendarDay extends StatelessWidget {
-  final Day day;
-  final bool isCompleted;
-  final VoidCallback onMarkCompleted;
-
-  const CalendarDay({
-    super.key,
-    required this.day,
-    required this.isCompleted,
-    required this.onMarkCompleted,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final dayString = day.toString().substring(4);
-    return WbMotion(
-      onPressed: onMarkCompleted,
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 2.r),
-        width: 40.w,
-        height: 56.h,
-        decoration: BoxDecoration(
-          color: WbColors.white,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            isCompleted
-                ? const Icon(
-                    Icons.check_circle,
-                    color: WbColors.blue009AFF,
-                  )
-                : Icon(
-                    Icons.circle_outlined,
-                    color: WbColors.black.withOpacity(0.6),
-                  ),
-            SizedBox(height: 4.h),
-            Text(
-              dayString[0].toUpperCase() + dayString.substring(1),
-              style: TextStyle(
-                fontSize: 16.h,
-                fontWeight: FontWeight.w500,
-                color: WbColors.black.withOpacity(0.6),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
 
 Future<int> getCalories() async {
@@ -226,4 +240,14 @@ Future<int> getCalories() async {
 Future<void> setCalories(int calories) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setInt('Calories', calories);
+}
+
+Future<int> getDay() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('Day') ?? 0;
+}
+
+Future<void> setDay(int days) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('Day', days);
 }

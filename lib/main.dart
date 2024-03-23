@@ -7,7 +7,6 @@ import 'package:weightburner_119/assessment/hive_data_profil/hive_data_box.dart'
 import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
 import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
 import 'package:weightburner_119/challenges/logic/repositories/challenges_repo.dart';
-import 'package:weightburner_119/core/con_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
