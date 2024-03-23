@@ -22,8 +22,8 @@ class ChallengesCubit extends Cubit<ChallengesState> {
     }
   }
 
-  saveStarChallenges(int id, double star) async {
-    await repo.saveStarChallenges(id, star);
-    getChallenges();
-  }
+  // saveStarChallenges(int id, double star) async {
+  //   await repo.saveStarChallenges(id, star);
+  //   getChallenges();
+  // }
 }

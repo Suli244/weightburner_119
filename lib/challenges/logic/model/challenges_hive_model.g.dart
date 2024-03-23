@@ -6,29 +6,29 @@ part of 'challenges_hive_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ChallengesHiveModelAdapter extends TypeAdapter<ChallengesHiveModel> {
+class ChallengesContentAdapter extends TypeAdapter<ChallengesContent> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
-  ChallengesHiveModel read(BinaryReader reader) {
+  ChallengesContent read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ChallengesHiveModel(
+    return ChallengesContent(
       id: fields[0] as int,
       image: fields[1] as String,
-      data: fields[2] as String,
-      lang: fields[3] as String,
-      stars: fields[4] as double,
-      title: fields[5] as String,
-      description: fields[6] as String,
+      title: fields[2] as String,
+      status: fields[3] as String,
+      daysPassed: fields[4] as int,
+      daysLeft: fields[5] as int,
+      sp: fields[6] as bool,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ChallengesHiveModel obj) {
+  void write(BinaryWriter writer, ChallengesContent obj) {
     writer
       ..writeByte(7)
       ..writeByte(0)
@@ -36,15 +36,15 @@ class ChallengesHiveModelAdapter extends TypeAdapter<ChallengesHiveModel> {
       ..writeByte(1)
       ..write(obj.image)
       ..writeByte(2)
-      ..write(obj.data)
-      ..writeByte(3)
-      ..write(obj.lang)
-      ..writeByte(4)
-      ..write(obj.stars)
-      ..writeByte(5)
       ..write(obj.title)
+      ..writeByte(3)
+      ..write(obj.status)
+      ..writeByte(4)
+      ..write(obj.daysPassed)
+      ..writeByte(5)
+      ..write(obj.daysLeft)
       ..writeByte(6)
-      ..write(obj.description);
+      ..write(obj.sp);
   }
 
   @override
@@ -53,7 +53,7 @@ class ChallengesHiveModelAdapter extends TypeAdapter<ChallengesHiveModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ChallengesHiveModelAdapter &&
+      other is ChallengesContentAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

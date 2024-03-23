@@ -20,21 +20,21 @@ mixin _$ChallengesState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(List<ChallengesHiveModel> model) success,
+    required TResult Function(List<ChallengesContent> model) success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(List<ChallengesHiveModel> model)? success,
+    TResult? Function(List<ChallengesContent> model)? success,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(List<ChallengesHiveModel> model)? success,
+    TResult Function(List<ChallengesContent> model)? success,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,7 +120,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(List<ChallengesHiveModel> model) success,
+    required TResult Function(List<ChallengesContent> model) success,
   }) {
     return loading();
   }
@@ -130,7 +130,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(List<ChallengesHiveModel> model)? success,
+    TResult? Function(List<ChallengesContent> model)? success,
   }) {
     return loading?.call();
   }
@@ -140,7 +140,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(List<ChallengesHiveModel> model)? success,
+    TResult Function(List<ChallengesContent> model)? success,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -254,7 +254,7 @@ class _$ErrorImpl implements _Error {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(List<ChallengesHiveModel> model) success,
+    required TResult Function(List<ChallengesContent> model) success,
   }) {
     return error(this.error);
   }
@@ -264,7 +264,7 @@ class _$ErrorImpl implements _Error {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(List<ChallengesHiveModel> model)? success,
+    TResult? Function(List<ChallengesContent> model)? success,
   }) {
     return error?.call(this.error);
   }
@@ -274,7 +274,7 @@ class _$ErrorImpl implements _Error {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(List<ChallengesHiveModel> model)? success,
+    TResult Function(List<ChallengesContent> model)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -333,7 +333,7 @@ abstract class _$$SuccessImplCopyWith<$Res> {
           _$SuccessImpl value, $Res Function(_$SuccessImpl) then) =
       __$$SuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<ChallengesHiveModel> model});
+  $Res call({List<ChallengesContent> model});
 }
 
 /// @nodoc
@@ -353,7 +353,7 @@ class __$$SuccessImplCopyWithImpl<$Res>
       null == model
           ? _value._model
           : model // ignore: cast_nullable_to_non_nullable
-              as List<ChallengesHiveModel>,
+              as List<ChallengesContent>,
     ));
   }
 }
@@ -361,11 +361,11 @@ class __$$SuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessImpl implements _Success {
-  const _$SuccessImpl(final List<ChallengesHiveModel> model) : _model = model;
+  const _$SuccessImpl(final List<ChallengesContent> model) : _model = model;
 
-  final List<ChallengesHiveModel> _model;
+  final List<ChallengesContent> _model;
   @override
-  List<ChallengesHiveModel> get model {
+  List<ChallengesContent> get model {
     if (_model is EqualUnmodifiableListView) return _model;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_model);
@@ -399,7 +399,7 @@ class _$SuccessImpl implements _Success {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(String error) error,
-    required TResult Function(List<ChallengesHiveModel> model) success,
+    required TResult Function(List<ChallengesContent> model) success,
   }) {
     return success(model);
   }
@@ -409,7 +409,7 @@ class _$SuccessImpl implements _Success {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(String error)? error,
-    TResult? Function(List<ChallengesHiveModel> model)? success,
+    TResult? Function(List<ChallengesContent> model)? success,
   }) {
     return success?.call(model);
   }
@@ -419,7 +419,7 @@ class _$SuccessImpl implements _Success {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(String error)? error,
-    TResult Function(List<ChallengesHiveModel> model)? success,
+    TResult Function(List<ChallengesContent> model)? success,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -464,9 +464,9 @@ class _$SuccessImpl implements _Success {
 }
 
 abstract class _Success implements ChallengesState {
-  const factory _Success(final List<ChallengesHiveModel> model) = _$SuccessImpl;
+  const factory _Success(final List<ChallengesContent> model) = _$SuccessImpl;
 
-  List<ChallengesHiveModel> get model;
+  List<ChallengesContent> get model;
   @JsonKey(ignore: true)
   _$$SuccessImplCopyWith<_$SuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;

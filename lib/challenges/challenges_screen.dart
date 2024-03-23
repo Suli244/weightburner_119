@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weightburner_119/challenges/content/content.dart';
+import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
+import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
+import 'package:weightburner_119/challenges/widget/challenges_widget.dart';
 import 'package:weightburner_119/challenges/widget/two_cat_widget.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
@@ -14,10 +18,12 @@ class ChallengesScreen extends StatefulWidget {
 
 class _ChallengesScreenState extends State<ChallengesScreen> {
   int chaleVyb = 0;
-  List<ChallengesContent> sport =
-      listChallengesContent.where((e) => e.sp == false).toList();
-  List<ChallengesContent> health =
-      listChallengesContent.where((e) => e.sp == true).toList();
+  @override
+  void initState() {
+    context.read<ChallengesCubit>().getChallenges();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,77 +130,144 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
             ),
             SizedBox(height: 16.h),
             chaleVyb == 0
-                ? ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        padding: EdgeInsets.all(12.r),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: const Offset(0, 2),
+                ? BlocBuilder<ChallengesCubit, ChallengesState>(
+                    builder: (context, state) {
+                      return state.when(
+                        loading: () => const Center(
+                          child: SizedBox.square(
+                            dimension: 24,
+                            child: CircularProgressIndicator(
+                              color: WbColors.black,
+                              strokeWidth: 2.5,
                             ),
-                          ],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(12),
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    sport[index].title,
-                                    style: TextStyle(
-                                      fontSize: 16.h,
-                                      fontWeight: FontWeight.w500,
-                                      color: WbColors.black,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 25.w),
-                                Image.asset(sport[index].image, width: 40.w)
-                              ],
+                        error: (error) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width.w,
+                            child: Text(
+                              error,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 4.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    sport[index].status,
-                                    style: TextStyle(
-                                      fontSize: 12.h,
-                                      fontWeight: FontWeight.w500,
-                                      color: WbColors.blue009AFF,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: 25.w),
-                                Text(
-                                  '${sport[index].daysLeft}/${sport[index].daysPassed}',
-                                  style: TextStyle(
-                                    fontSize: 12.h,
-                                    fontWeight: FontWeight.w500,
-                                    color: WbColors.blue009AFF,
-                                  ),
-                                ),
-                                SizedBox(width: 10.w),
-                              ],
-                            ),
-                            SizedBox(height: 10.h),
-                          ],
+                          ),
                         ),
+                        success: (model) {
+                          List<ChallengesContent> sport =
+                              model.where((e) => e.sp == false).toList();
+                          return ChallengesWidget(model: sport);
+                        },
                       );
                     },
-                    separatorBuilder: (_, i) => SizedBox(height: 16.h),
-                    itemCount: sport.length)
-                : Container()
+                  )
+                : BlocBuilder<ChallengesCubit, ChallengesState>(
+                    builder: (context, state) {
+                      return state.when(
+                        loading: () => const Center(
+                          child: SizedBox.square(
+                            dimension: 24,
+                            child: CircularProgressIndicator(
+                              color: WbColors.black,
+                              strokeWidth: 2.5,
+                            ),
+                          ),
+                        ),
+                        error: (error) => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 16),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width.w,
+                            child: Text(
+                              error,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w400),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                        success: (model) {
+                          List<ChallengesContent> health =
+                              model.where((e) => e.sp == true).toList();
+                          return ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.all(12.r),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 1,
+                                        blurRadius: 3,
+                                        offset: const Offset(0, 2),
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              health[index].title,
+                                              style: TextStyle(
+                                                fontSize: 16.h,
+                                                fontWeight: FontWeight.w500,
+                                                color: WbColors.black,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 25.w),
+                                          Image.asset(health[index].image,
+                                              width: 40.w)
+                                        ],
+                                      ),
+                                      SizedBox(height: 4.h),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              health[index].status,
+                                              style: TextStyle(
+                                                fontSize: 12.h,
+                                                fontWeight: FontWeight.w500,
+                                                color: WbColors.blue009AFF,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(width: 25.w),
+                                          Text(
+                                            '${health[index].daysLeft}/${health[index].daysPassed}',
+                                            style: TextStyle(
+                                              fontSize: 12.h,
+                                              fontWeight: FontWeight.w500,
+                                              color: WbColors.blue009AFF,
+                                            ),
+                                          ),
+                                          SizedBox(width: 10.w),
+                                        ],
+                                      ),
+                                      SizedBox(height: 10.h),
+                                    ],
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (_, i) =>
+                                  SizedBox(height: 16.h),
+                              itemCount: health.length);
+                        },
+                      );
+                    },
+                  ),
+            SizedBox(height: 20.h),
           ],
         ),
       ),

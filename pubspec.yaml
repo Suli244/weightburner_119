@@ -52,7 +52,8 @@ dependencies:
   freezed_annotation: ^2.4.1
   flutter_bloc: ^8.1.4
   dio: ^5.4.1
-
+  flutter_swipe_button: ^2.1.1+1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
