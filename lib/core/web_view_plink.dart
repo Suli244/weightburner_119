@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:weightburner_119/core/wb_colors.dart';
 
 class WebFF extends StatefulWidget {
   final String url;
@@ -28,6 +30,19 @@ class _WebPlinkState extends State<WebFF> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: WbColors.white,
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            fontSize: 20.h,
+            color: WbColors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        leading: const BackButton(color: WbColors.black),
+      ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
