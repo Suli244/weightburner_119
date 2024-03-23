@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
-import 'package:weightburner_119/scanner/cubit/scanner_c_cubit/scanner_c_cubit.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
-import 'package:weightburner_119/scanner/model/food_model.dart';
 import 'package:weightburner_119/scanner/widget/aler_cupertino_alert_dialog_widget.dart';
-import 'package:weightburner_119/scanner/widget/detail_aler_cupertino_alert_dialog_widget.dart';
 import 'package:weightburner_119/scanner/widget/open_item_widget.dart';
 
 class ScannerScreen extends StatefulWidget {
