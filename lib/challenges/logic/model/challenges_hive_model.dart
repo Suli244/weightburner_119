@@ -19,6 +19,8 @@ class ChallengesContent extends HiveObject {
   int daysLeft;
   @HiveField(6)
   bool sp;
+  @HiveField(7)
+  bool chekDay;
   ChallengesContent({
     required this.id,
     required this.image,
@@ -27,5 +29,6 @@ class ChallengesContent extends HiveObject {
     required this.daysPassed,
     required this.daysLeft,
     required this.sp,
+    required this.chekDay,
   });
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +24,28 @@ class ChallengesWidget extends StatefulWidget {
 
 class _ChallengesWidgetState extends State<ChallengesWidget> {
   var bloc = ChallengesCubit(ChallengesRepoImpl());
+  Timer? _timer;
+  @override
+  void initState() {
+    super.initState();
+    final now = DateTime.now();
+    final nextMidnight = DateTime(now.year, now.month, now.day + 1);
+    final durationUntilMidnight = nextMidnight.difference(now);
+    _timer = Timer(durationUntilMidnight, () {
+      bloc.setAllCheckDaysTrue().then((_) {
+        if (mounted) {
+          setState(() {});
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -173,23 +197,33 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                 SizedBox(height: 14.h),
                 BlocProvider.value(
                   value: bloc,
-                  child: SwipeButton(
-                    thumbPadding: EdgeInsets.all(2.r),
-                    borderRadius: BorderRadius.circular(32.r),
-                    height: 56.h,
-                    thumb: Image.asset('assets/images/skrrbbb.png'),
-                    activeTrackColor: WbColors.blue009AFF,
-                    onSwipe: () async {
-                      await bloc.saveStarChallenges(widget.model[index].id);
-                      widget.onTTT('');
-                    },
-                    child: Center(
-                      child: Text(
-                        "Complete day ${widget.model[index].daysLeft}",
-                        style: TextStyle(
-                          fontSize: 16.h,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                  child: IgnorePointer(
+                    ignoring: !widget.model[index].chekDay,
+                    child: SwipeButton(
+                      thumbPadding: EdgeInsets.all(2.r),
+                      borderRadius: BorderRadius.circular(32.r),
+                      height: 56.h,
+                      thumb: widget.model[index].chekDay == true
+                          ? Image.asset('assets/images/skrrbbb.png')
+                          : Image.asset('assets/images/skrrbbbFalse.png'),
+                      activeTrackColor: widget.model[index].chekDay == true
+                          ? WbColors.blue009AFF
+                          : WbColors.blue009AFF.withOpacity(0.6),
+                      onSwipe: widget.model[index].chekDay == true
+                          ? () async {
+                              await bloc
+                                  .saveStarChallenges(widget.model[index].id);
+                              widget.onTTT('');
+                            }
+                          : () {},
+                      child: Center(
+                        child: Text(
+                          "Complete day ${widget.model[index].daysLeft}",
+                          style: TextStyle(
+                            fontSize: 16.h,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

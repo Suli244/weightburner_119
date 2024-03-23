@@ -5,6 +5,7 @@ abstract class ChallengesRepo {
   Future<List<ChallengesContent>> getChallenges();
   Future<void> setChallenges();
   saveChallengeButton(int id);
+  setAllCheckDaysTrue();
 }
 
 class ChallengesRepoImpl implements ChallengesRepo {
@@ -21,7 +22,19 @@ class ChallengesRepoImpl implements ChallengesRepo {
         await Hive.openBox<ChallengesContent>('ChallengesBox');
     final model = challengesBox.values.toList().singleWhere((e) => e.id == id);
     model.daysLeft = model.daysLeft + 1;
+    model.chekDay = false;
     model.save();
+  }
+
+  @override
+  setAllCheckDaysTrue() async {
+    final challengesBox =
+        await Hive.openBox<ChallengesContent>('ChallengesBox');
+    final challenges = challengesBox.values.toList();
+    for (var challenge in challenges) {
+      challenge.chekDay = true;
+      await challenge.save();
+    }
   }
 
   @override
@@ -37,6 +50,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 7,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
         ChallengesContent(
@@ -46,6 +60,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 5,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
         ChallengesContent(
@@ -55,6 +70,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 6,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
         ChallengesContent(
@@ -64,6 +80,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 7,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
         ChallengesContent(
@@ -73,6 +90,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 4,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
         ChallengesContent(
@@ -82,6 +100,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 5,
           daysLeft: 0,
+          chekDay: true,
           sp: false,
         ),
 
@@ -93,6 +112,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 7,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
         ChallengesContent(
@@ -102,6 +122,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 5,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
         ChallengesContent(
@@ -111,6 +132,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 6,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
         ChallengesContent(
@@ -120,6 +142,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 7,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
         ChallengesContent(
@@ -129,6 +152,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 4,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
         ChallengesContent(
@@ -138,6 +162,7 @@ class ChallengesRepoImpl implements ChallengesRepo {
           status: 'Challenge not started',
           daysPassed: 5,
           daysLeft: 0,
+          chekDay: true,
           sp: true,
         ),
       ];

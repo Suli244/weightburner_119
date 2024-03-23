@@ -10,7 +10,7 @@ class ChallengesCubit extends Cubit<ChallengesState> {
     getChallenges();
   }
   final ChallengesRepo repo;
-  Future<void>getChallenges() async {
+  Future<void> getChallenges() async {
     await repo.setChallenges();
     emit(const ChallengesState.loading());
     try {
@@ -24,6 +24,11 @@ class ChallengesCubit extends Cubit<ChallengesState> {
 
   Future<void> saveStarChallenges(int id) async {
     await repo.saveChallengeButton(id);
+    getChallenges();
+  }
+
+  Future<void> setAllCheckDaysTrue() async {
+    await repo.setAllCheckDaysTrue();
     getChallenges();
   }
 }

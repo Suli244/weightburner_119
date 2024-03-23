@@ -24,13 +24,14 @@ class ChallengesContentAdapter extends TypeAdapter<ChallengesContent> {
       daysPassed: fields[4] as int,
       daysLeft: fields[5] as int,
       sp: fields[6] as bool,
+      chekDay: fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, ChallengesContent obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class ChallengesContentAdapter extends TypeAdapter<ChallengesContent> {
       ..writeByte(5)
       ..write(obj.daysLeft)
       ..writeByte(6)
-      ..write(obj.sp);
+      ..write(obj.sp)
+      ..writeByte(7)
+      ..write(obj.chekDay);
   }
 
   @override
