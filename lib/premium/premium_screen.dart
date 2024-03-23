@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:weightburner_119/assessment/pages/assess_gender_screen.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
 import 'package:weightburner_119/core/con_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';

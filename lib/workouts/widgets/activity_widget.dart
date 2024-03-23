@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 
 class ActivityWidget extends StatelessWidget {
@@ -10,6 +13,7 @@ class ActivityWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 24.r),
       padding: EdgeInsets.all(12.r),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -35,7 +39,7 @@ class ActivityWidget extends StatelessWidget {
               color: WbColors.black,
             ),
           ),
-          SizedBox(height: 50.h),
+          SizedBox(height: 20.h),
           Container(
             padding: EdgeInsets.all(12.r),
             width: MediaQuery.of(context).size.width,
@@ -56,13 +60,19 @@ class ActivityWidget extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Text(
-                  '0',
-                  style: TextStyle(
-                    fontSize: 16.h,
-                    fontWeight: FontWeight.w700,
-                    color: WbColors.white,
-                  ),
+                FutureBuilder(
+                  future: getCalories(),
+                  builder: (context, snapshot) {
+                    int getCalories = snapshot.data ?? 0;
+                    return Text(
+                      '$getCalories',
+                      style: TextStyle(
+                        fontSize: 16.h,
+                        fontWeight: FontWeight.w700,
+                        color: WbColors.white,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
@@ -89,7 +99,7 @@ class ActivityWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 Text(
-                  '0',
+                  '${getRandomSteps()}',
                   style: TextStyle(
                     fontSize: 16.h,
                     fontWeight: FontWeight.w700,
@@ -103,4 +113,18 @@ class ActivityWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+int getRandomSteps() {
+  return Random().nextInt(2500 - 200) + 200;
+}
+
+Future<int> getCalories() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('Calories') ?? 0;
+}
+
+Future<void> setCalories(int calories) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('Calories', calories);
 }
