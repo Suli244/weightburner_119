@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swipe_button/flutter_swipe_button.dart';
+import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
 import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
+import 'package:weightburner_119/challenges/logic/repositories/challenges_repo.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 
-class ChallengesWidget extends StatelessWidget {
+class ChallengesWidget extends StatefulWidget {
   const ChallengesWidget({
     super.key,
     required this.model,
+    required this.onTTT,
   });
 
   final List<ChallengesContent> model;
+  final ValueChanged onTTT;
+  @override
+  State<ChallengesWidget> createState() => _ChallengesWidgetState();
+}
 
+class _ChallengesWidgetState extends State<ChallengesWidget> {
+  var bloc = ChallengesCubit(ChallengesRepoImpl());
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
@@ -39,7 +49,7 @@ class ChallengesWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        model[index].title,
+                        widget.model[index].title,
                         style: TextStyle(
                           fontSize: 16.h,
                           fontWeight: FontWeight.w500,
@@ -48,7 +58,7 @@ class ChallengesWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 25.w),
-                    Image.asset(model[index].image, width: 40.w)
+                    Image.asset(widget.model[index].image, width: 40.w)
                   ],
                 ),
                 SizedBox(height: 4.h),
@@ -57,7 +67,7 @@ class ChallengesWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        model[index].status,
+                        widget.model[index].status,
                         style: TextStyle(
                           fontSize: 12.h,
                           fontWeight: FontWeight.w500,
@@ -67,7 +77,7 @@ class ChallengesWidget extends StatelessWidget {
                     ),
                     SizedBox(width: 25.w),
                     Text(
-                      '${model[index].daysLeft}/${model[index].daysPassed}',
+                      '${widget.model[index].daysLeft}/${widget.model[index].daysPassed}',
                       style: TextStyle(
                         fontSize: 12.h,
                         fontWeight: FontWeight.w500,
@@ -84,61 +94,78 @@ class ChallengesWidget extends StatelessWidget {
                     child: SizedBox(
                       height: 61.h,
                       child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8.r, vertical: 4.r),
-                              decoration: BoxDecoration(
-                                  color: WbColors.blue009AFF,
-                                  borderRadius: BorderRadius.circular(12.r)),
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 24.h,
-                                    width: 24.w,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        width: 2,
-                                        color: WbColors.white,
-                                      ),
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemBuilder: (context, innerIndex) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8.r, vertical: 4.r),
+                            decoration: BoxDecoration(
+                                color:
+                                    widget.model[index].daysLeft >= innerIndex
+                                        ? WbColors.blue009AFF
+                                        : Colors.transparent,
+                                borderRadius: BorderRadius.circular(12.r)),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 24.h,
+                                  width: 24.w,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                      width: 2,
+                                      color: widget.model[index].daysLeft >=
+                                              innerIndex
+                                          ? WbColors.white
+                                          : WbColors.black.withOpacity(0.6),
                                     ),
                                   ),
-                                  SizedBox(height: 6.h),
-                                  Text(
-                                    '${index++}',
-                                    style: TextStyle(
-                                      fontSize: 16.h,
-                                      fontWeight: FontWeight.w500,
-                                      color: WbColors.whitEEEAEA,
-                                    ),
+                                ),
+                                SizedBox(height: 6.h),
+                                Text(
+                                  '${innerIndex + 1}',
+                                  style: TextStyle(
+                                    fontSize: 16.h,
+                                    fontWeight: FontWeight.w500,
+                                    color: widget.model[index].daysLeft >=
+                                            innerIndex
+                                        ? WbColors.whitEEEAEA
+                                        : WbColors.black.withOpacity(0.6),
                                   ),
-                                ],
-                              ),
-                            );
-                          },
-                          separatorBuilder: (_, i) => SizedBox(width: 16.w),
-                          itemCount: model[index].daysPassed),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: (_, innerIndex) =>
+                            SizedBox(width: 16.w),
+                        itemCount: widget.model[index].daysPassed,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(height: 14.h),
-                SwipeButton(
-                  thumbPadding: EdgeInsets.all(2.r),
-                  borderRadius: BorderRadius.circular(32.r),
-                  height: 56.h,
-                  thumb: Image.asset('assets/images/skrrbbb.png'),
-                  activeTrackColor: WbColors.blue009AFF,
-                  onSwipe: () {},
-                  child: Center(
-                    child: Text(
-                      "Complete day 1",
-                      style: TextStyle(
-                        fontSize: 16.h,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
+                BlocProvider.value(
+                  value: bloc,
+                  child: SwipeButton(
+                    thumbPadding: EdgeInsets.all(2.r),
+                    borderRadius: BorderRadius.circular(32.r),
+                    height: 56.h,
+                    thumb: Image.asset('assets/images/skrrbbb.png'),
+                    activeTrackColor: WbColors.blue009AFF,
+                    onSwipe: () async {
+                      await bloc.saveStarChallenges(widget.model[index].id);
+                      widget.onTTT('');
+                    },
+                    child: Center(
+                      child: Text(
+                        "Complete day 1",
+                        style: TextStyle(
+                          fontSize: 16.h,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -148,6 +175,6 @@ class ChallengesWidget extends StatelessWidget {
           );
         },
         separatorBuilder: (_, i) => SizedBox(height: 16.h),
-        itemCount: model.length);
+        itemCount: widget.model.length);
   }
 }

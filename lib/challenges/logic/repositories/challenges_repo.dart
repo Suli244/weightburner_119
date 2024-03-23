@@ -4,7 +4,7 @@ import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.da
 abstract class ChallengesRepo {
   Future<List<ChallengesContent>> getChallenges();
   Future<void> setChallenges();
-  // saveStarChallenges(int id, double star);
+  saveChallengeButton(int id);
 }
 
 class ChallengesRepoImpl implements ChallengesRepo {
@@ -15,14 +15,14 @@ class ChallengesRepoImpl implements ChallengesRepo {
     return challengesBox.values.toList();
   }
 
-  // @override
-  // saveStarChallenges(int id, double star) async {
-  //   final challengesBox =
-  //       await Hive.openBox<ChallengesContent>('ChallengesBox');
-  //   final model = challengesBox.values.toList().singleWhere((e) => e.id == id);
-  //   model.stars = star;
-  //   model.save();
-  // }
+  @override
+  saveChallengeButton(int id) async {
+    final challengesBox =
+        await Hive.openBox<ChallengesContent>('ChallengesBox');
+    final model = challengesBox.values.toList().singleWhere((e) => e.id == id);
+    model.daysLeft = model.daysLeft + 1;
+    model.save();
+  }
 
   @override
   Future<void> setChallenges() async {

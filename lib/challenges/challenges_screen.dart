@@ -157,7 +157,12 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                         success: (model) {
                           List<ChallengesContent> sport =
                               model.where((e) => e.sp == false).toList();
-                          return ChallengesWidget(model: sport);
+                          return ChallengesWidget(
+                            model: sport,
+                            onTTT: (value) {
+                              context.read<ChallengesCubit>().getChallenges();
+                            },
+                          );
                         },
                       );
                     },
