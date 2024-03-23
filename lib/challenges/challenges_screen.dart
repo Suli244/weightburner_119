@@ -194,80 +194,12 @@ class _ChallengesScreenState extends State<ChallengesScreen> {
                         success: (model) {
                           List<ChallengesContent> health =
                               model.where((e) => e.sp == true).toList();
-                          return ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  padding: EdgeInsets.all(12.r),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 3,
-                                        offset: const Offset(0, 2),
-                                      ),
-                                    ],
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              health[index].title,
-                                              style: TextStyle(
-                                                fontSize: 16.h,
-                                                fontWeight: FontWeight.w500,
-                                                color: WbColors.black,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 25.w),
-                                          Image.asset(health[index].image,
-                                              width: 40.w)
-                                        ],
-                                      ),
-                                      SizedBox(height: 4.h),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              health[index].status,
-                                              style: TextStyle(
-                                                fontSize: 12.h,
-                                                fontWeight: FontWeight.w500,
-                                                color: WbColors.blue009AFF,
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(width: 25.w),
-                                          Text(
-                                            '${health[index].daysLeft}/${health[index].daysPassed}',
-                                            style: TextStyle(
-                                              fontSize: 12.h,
-                                              fontWeight: FontWeight.w500,
-                                              color: WbColors.blue009AFF,
-                                            ),
-                                          ),
-                                          SizedBox(width: 10.w),
-                                        ],
-                                      ),
-                                      SizedBox(height: 10.h),
-                                    ],
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (_, i) =>
-                                  SizedBox(height: 16.h),
-                              itemCount: health.length);
+                          return ChallengesWidget(
+                            model: health,
+                            onTTT: (value) {
+                              context.read<ChallengesCubit>().getChallenges();
+                            },
+                          );
                         },
                       );
                     },
