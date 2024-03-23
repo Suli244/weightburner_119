@@ -100,7 +100,7 @@ class _AssessTimeScreenState extends State<AssessTimeScreen> {
                       child: Column(
                         children: [
                           Text(
-                            '12',
+                            '21',
                             style: TextStyle(
                               fontSize: 64.h,
                               fontWeight: FontWeight.w800,
@@ -139,7 +139,7 @@ class _AssessTimeScreenState extends State<AssessTimeScreen> {
                       child: Column(
                         children: [
                           Text(
-                            '21',
+                            '12',
                             style: TextStyle(
                               fontSize: 64.h,
                               fontWeight: FontWeight.w800,

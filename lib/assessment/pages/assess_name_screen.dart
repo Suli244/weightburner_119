@@ -86,31 +86,43 @@ class _AssessNameScreenState extends State<AssessNameScreen> {
                   SizedBox(
                     height: 116.h,
                     child: data.isNotEmpty
-                        ? WbMotion(
-                            onPressed: () {
-                              pickerGallery();
-                            },
-                            child: Row(
-                              children: [
-                                const Spacer(),
-                                Image.asset(
-                                  'assets/images/gallery_assessment.png',
-                                  width: 24.w,
+                        ? selectedImage == null
+                            ? WbMotion(
+                                onPressed: () {
+                                  pickerGallery();
+                                },
+                                child: Row(
+                                  children: [
+                                    const Spacer(),
+                                    Image.asset(
+                                      'assets/images/gallery_assessment.png',
+                                      width: 24.w,
+                                    ),
+                                    SizedBox(width: 8.w),
+                                    Text(
+                                      'Upload your profile picture',
+                                      style: TextStyle(
+                                        fontSize: 16.h,
+                                        fontWeight: FontWeight.w700,
+                                        color: WbColors.white,
+                                        height: 0,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                  ],
                                 ),
-                                SizedBox(width: 8.w),
-                                Text(
-                                  'Upload your profile picture',
-                                  style: TextStyle(
-                                    fontSize: 16.h,
-                                    fontWeight: FontWeight.w700,
-                                    color: WbColors.white,
-                                    height: 0,
-                                  ),
+                              )
+                            : WbMotion(
+                                onPressed: () {
+                                  pickerGallery();
+                                },
+                                child: CircleAvatar(
+                                  radius: 40.h,
+                                  backgroundColor: Colors.white,
+                                  backgroundImage: FileImage(
+                                      File(selectedImage?.path ?? "")),
                                 ),
-                                const Spacer(),
-                              ],
-                            ),
-                          )
+                              )
                         : null,
                   ),
                   CustomTextField(
