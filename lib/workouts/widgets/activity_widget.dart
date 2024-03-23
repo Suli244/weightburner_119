@@ -4,11 +4,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
+import 'package:weightburner_119/core/wb_motin.dart';
 
-class ActivityWidget extends StatelessWidget {
+enum Day { M, T, W, Th, F, S, Sn }
+
+class ActivityWidget extends StatefulWidget {
   const ActivityWidget({
     super.key,
   });
+
+  @override
+  State<ActivityWidget> createState() => _ActivityWidgetState();
+}
+
+class _ActivityWidgetState extends State<ActivityWidget> {
+  Map<Day, bool> completedDays = {}; // Map to store completed days
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCompletedDays();
+  }
+
+  Future<void> _loadCompletedDays() async {
+    final prefs = await SharedPreferences.getInstance();
+    for (final day in Day.values) {
+      completedDays[day] = prefs.getBool(day.name) ?? false;
+    }
+  }
+
+  Future<void> _markDayCompleted(Day day) async {
+    setState(() {
+      completedDays[day] = true;
+    });
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(day.name, true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +70,22 @@ class ActivityWidget extends StatelessWidget {
               color: WbColors.black,
             ),
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 8.h),
+          //////////Calendar//////////////
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: Day.values.map((day) {
+                final isCompleted = completedDays[day] ?? false;
+                return CalendarDay(
+                  day: day,
+                  isCompleted: isCompleted,
+                  onMarkCompleted: () => _markDayCompleted(day),
+                );
+              }).toList(),
+            ),
+          ),
+          SizedBox(height: 16.h),
           Container(
             padding: EdgeInsets.all(12.r),
             width: MediaQuery.of(context).size.width,
@@ -117,6 +163,59 @@ class ActivityWidget extends StatelessWidget {
 
 int getRandomSteps() {
   return Random().nextInt(2500 - 200) + 200;
+}
+
+class CalendarDay extends StatelessWidget {
+  final Day day;
+  final bool isCompleted;
+  final VoidCallback onMarkCompleted;
+
+  const CalendarDay({
+    super.key,
+    required this.day,
+    required this.isCompleted,
+    required this.onMarkCompleted,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dayString = day.toString().substring(4);
+    return WbMotion(
+      onPressed: onMarkCompleted,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 2.r),
+        width: 40.w,
+        height: 56.h,
+        decoration: BoxDecoration(
+          color: WbColors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isCompleted
+                ? const Icon(
+                    Icons.check_circle,
+                    color: WbColors.blue009AFF,
+                  )
+                : Icon(
+                    Icons.circle_outlined,
+                    color: WbColors.black.withOpacity(0.6),
+                  ),
+            SizedBox(height: 4.h),
+            Text(
+              dayString[0].toUpperCase() + dayString.substring(1),
+              style: TextStyle(
+                fontSize: 16.h,
+                fontWeight: FontWeight.w500,
+                color: WbColors.black.withOpacity(0.6),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 Future<int> getCalories() async {
