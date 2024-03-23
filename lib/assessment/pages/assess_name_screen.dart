@@ -30,29 +30,6 @@ class _AssessNameScreenState extends State<AssessNameScreen> {
       child: Scaffold(
         backgroundColor: WbColors.blue04213E,
         appBar: AppBar(
-          leading: widget.isActiv
-              ? null
-              : Padding(
-                  padding: EdgeInsets.only(left: 20.w),
-                  child: WbMotion(
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WbBottomBar(
-                            indexScr: 0,
-                          ),
-                        ),
-                        (protected) => false,
-                      );
-                    },
-                    child: Icon(
-                      Icons.arrow_back_ios_rounded,
-                      size: 24.w,
-                      color: WbColors.white,
-                    ),
-                  ),
-                ),
           title: Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
