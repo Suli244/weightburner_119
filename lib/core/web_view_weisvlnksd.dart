@@ -3,21 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 
-class WebFF extends StatefulWidget {
+class WebFFPknjsd extends StatefulWidget {
   final String url;
   final String title;
 
-  const WebFF({
+  const WebFFPknjsd({
     super.key,
     required this.title,
     required this.url,
   });
 
   @override
-  State<WebFF> createState() => _WebPlinkState();
+  State<WebFFPknjsd> createState() => _WebPlinkState();
 }
 
-class _WebPlinkState extends State<WebFF> {
+class _WebPlinkState extends State<WebFFPknjsd> {
   late WebViewController controller;
   @override
   void initState() {

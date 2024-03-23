@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
-import 'package:weightburner_119/core/con_bar.dart';
+import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/urls.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
@@ -12,14 +12,14 @@ import 'package:weightburner_119/onbording/widget/rest_wid.dart';
 import 'package:weightburner_119/settings/weightburner_adasaklnsa.dart';
 import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
-class PremiumScreen extends StatefulWidget {
-  const PremiumScreen({super.key, this.isClose = false});
+class Ljbvasdsdvsd extends StatefulWidget {
+  const Ljbvasdsdvsd({super.key, this.isClose = false});
   final bool isClose;
   @override
-  State<PremiumScreen> createState() => _PremiumScreenState();
+  State<Ljbvasdsdvsd> createState() => _LjbvasdsdvsdState();
 }
 
-class _PremiumScreenState extends State<PremiumScreen> {
+class _LjbvasdsdvsdState extends State<Ljbvasdsdvsd> {
   Future<void> weightburnerPurchase() async {
     final weightburnerPaywall = await WeightburnerAdapty().weightburnerGetPaywall(DocFF.poawjfncs);
     if (weightburnerPaywall == null) return;

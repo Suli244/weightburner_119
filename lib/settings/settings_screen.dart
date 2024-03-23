@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/core/urls.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
-import 'package:weightburner_119/core/web_view_plink.dart';
-import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/core/web_view_weisvlnksd.dart';
+import 'package:weightburner_119/premium/prencsdsnvcds.dart';
 import 'package:weightburner_119/settings/profile/profile.dart';
 import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
-import 'package:weightburner_119/settings/widget/settings_item_widget.dart';
+import 'package:weightburner_119/settings/widget/settings_item_widget_cascas.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -38,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
                  Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WebFF(
+                    builder: (context) => const WebFFPknjsd(
                       title: 'Privacy Policy',
                       url: DocFF.pP,
                     ),
@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WebFF(
+                    builder: (context) => const WebFFPknjsd(
                       title: 'Terms of Use',
                       url: DocFF.tUse,
                     ),
@@ -70,7 +70,7 @@ class SettingsScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const WebFF(
+                    builder: (context) => const WebFFPknjsd(
                       title: 'Support',
                       url: DocFF.s,
                     ),
@@ -120,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const PremiumScreen(
+                            builder: (context) => const Ljbvasdsdvsd(
                               isClose: true,
                             ),
                           ),

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:weightburner_119/core/con_bar.dart';
+import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 import 'package:weightburner_119/workouts/widgets/activity_widget.dart';
@@ -46,7 +46,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
     sssavihb();
     _loadCompletedDays();
     startTimerStart();
-    totalSecondsMain = widget.model.podr[currantPage].min * 60;
+    totalSecondsMain = widget.model.ponsmvasa[currantPage].min * 60;
     controller.addListener(() {
       if (controller.page?.round() != currantPage) {
         handlePageChange(controller.page!.round());
@@ -126,7 +126,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                 timer.cancel();
                 _isRunning = false;
                 isActive = true;
-                if (currantPage < widget.model.podr.length - 1) {
+                if (currantPage < widget.model.ponsmvasa.length - 1) {
                   // controller.nextPage(
                   //     duration: const Duration(milliseconds: 300),
                   //     curve: Curves.easeIn);
@@ -151,7 +151,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
 
     setState(() {
       currantPage = newPageIndex;
-      totalSecondsMain = widget.model.podr[currantPage].min * 60;
+      totalSecondsMain = widget.model.ponsmvasa[currantPage].min * 60;
       secondMain = totalSecondsMain;
       progress = 0;
       _isRunning = false;
@@ -190,7 +190,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                 children: [
                   const Spacer(),
                   Text(
-                    currantPage == widget.model.podr.length - 1
+                    currantPage == widget.model.ponsmvasa.length - 1
                         ? ''
                         : 'Rest 30 seconds',
                     style: TextStyle(
@@ -241,7 +241,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                           },
                           controller: controller,
                           children:
-                              List.generate(widget.model.podr.length, (index) {
+                              List.generate(widget.model.ponsmvasa.length, (index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(horizontal: 4.r),
                               child: Column(
@@ -249,7 +249,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    widget.model.podr[currantPage].title,
+                                    widget.model.ponsmvasa[currantPage].title,
                                     style: TextStyle(
                                       fontSize: 14.h,
                                       fontWeight: FontWeight.w400,
@@ -257,7 +257,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                                     ),
                                   ),
                                   Text(
-                                    widget.model.podr[currantPage].dis,
+                                    widget.model.ponsmvasa[currantPage].dis,
                                     style: TextStyle(
                                       color: WbColors.white,
                                       fontWeight: FontWeight.w400,
@@ -274,7 +274,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                       WbMotion(
                         onPressed: () async {
                           if (isActive) {
-                            if (currantPage == widget.model.podr.length - 1) {
+                            if (currantPage == widget.model.ponsmvasa.length - 1) {
                               dayCal = dayCal + 1;
                               await setDay(dayCal);
                               timerMain.cancel();
@@ -300,7 +300,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                                 (route) => false,
                               );
                               calories = calories +
-                                  widget.model.podr[currantPage].kcal;
+                                  widget.model.ponsmvasa[currantPage].kcal;
                               await setCalories(calories);
                             } else {
                               controller.nextPage(
@@ -321,7 +321,7 @@ class _WorkoutStartState extends State<WorkoutStart> {
                           ),
                           child: Center(
                             child: Text(
-                              currantPage == widget.model.podr.length - 1
+                              currantPage == widget.model.ponsmvasa.length - 1
                                   ? 'Finish'
                                   : 'Next',
                               style: TextStyle(

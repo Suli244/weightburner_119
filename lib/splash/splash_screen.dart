@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
-import 'package:weightburner_119/onbording/onbording.dart';
+import 'package:weightburner_119/onbording/onbording_clnjsdsdv.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreenYTvabcas extends StatefulWidget {
+  const SplashScreenYTvabcas({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashScreenYTvabcas> createState() => _SplashScreenYTvabcasState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenYTvabcasState extends State<SplashScreenYTvabcas> {
   @override
   void initState() {
     firstOpen();
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const Onbording(),
+        builder: (context) => const OnbordingLajbcascas(),
       ),
     );
   }

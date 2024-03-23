@@ -45,11 +45,11 @@ class _WorkoutPageState extends State<WorkoutPage> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return WorkWidget(
-                    model: widget.model.podr[index],
+                    model: widget.model.ponsmvasa[index],
                   );
                 },
                 separatorBuilder: (_, i) => SizedBox(height: 16.h),
-                itemCount: widget.model.podr.length,
+                itemCount: widget.model.ponsmvasa.length,
               ),
               SizedBox(height: 24.h),
               Text(
@@ -216,7 +216,7 @@ class WorkWidget extends StatelessWidget {
     required this.model,
   });
 
-  final Podr model;
+  final Ponsmvasa model;
 
   @override
   Widget build(BuildContext context) {

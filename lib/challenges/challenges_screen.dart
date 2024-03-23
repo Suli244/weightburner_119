@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
 import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
-import 'package:weightburner_119/challenges/widget/challenges_widget.dart';
+import 'package:weightburner_119/challenges/widget/challenges_widget_sdmlvsdv.dart';
 import 'package:weightburner_119/challenges/widget/two_cat_widget.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';

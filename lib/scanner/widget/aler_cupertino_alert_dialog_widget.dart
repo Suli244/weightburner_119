@@ -103,14 +103,14 @@ Future cuperAlerScanner(BuildContext context) async {
                 child: Builder(
                   builder: (context) => CupertinoDialogAction(
                     onPressed: () async {
-                      var res = await Navigator.push(
+                      var vdvwed = await Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
                                 const SimpleBarcodeScannerPage(),
                           ));
-                      if (res is String) {
-                        context.read<ScannerCCubit>().getFood(res);
+                      if (vdvwed is String) {
+                        context.read<ScannerCCubit>().getFood(vdvwed);
                       }
                     },
                     child: isLoading

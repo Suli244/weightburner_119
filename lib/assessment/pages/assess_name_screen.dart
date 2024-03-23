@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:weightburner_119/assessment/pages/assess_gender_screen.dart';
 import 'package:weightburner_119/assessment/widgets/app_unfocuser.dart';
-import 'package:weightburner_119/assessment/widgets/custom_text_fields.dart';
-import 'package:weightburner_119/core/con_bar.dart';
+import 'package:weightburner_119/assessment/widgets/custom_text_fields_canscascs.dart';
+import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 

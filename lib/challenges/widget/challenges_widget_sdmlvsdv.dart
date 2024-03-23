@@ -10,7 +10,7 @@ import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.da
 import 'package:weightburner_119/challenges/logic/repositories/challenges_repo.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
-import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/premium/prencsdsnvcds.dart';
 import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
 class ChallengesWidget extends StatefulWidget {
@@ -295,7 +295,7 @@ class CallenddddWwww extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const PremiumScreen(isClose: true),
+                              const Ljbvasdsdvsd(isClose: true),
                         ),
                       );
                     },
