@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/premium/premium_screen.dart';
 import 'package:weightburner_119/settings/profile/profile.dart';
+import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 import 'package:weightburner_119/settings/widget/settings_item_widget.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -49,7 +50,9 @@ class SettingsScreen extends StatelessWidget {
             SetItWid(
               imageSetti: 'assets/icons/restore_icon.svg',
               text: 'Restore',
-              onPressed: () {},
+              onPressed: () {
+                restoreWeightburnerPinjcdv(context);
+              },
               isPaddin: true,
               iconHeg: 27.h,
             ),

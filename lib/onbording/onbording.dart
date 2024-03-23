@@ -10,6 +10,7 @@ import 'package:weightburner_119/core/wb_motin.dart';
 import 'package:weightburner_119/onbording/widget/onboarding_item_widget.dart';
 import 'package:weightburner_119/onbording/widget/rest_wid.dart';
 import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
 class Onbording extends StatefulWidget {
   const Onbording({super.key});
@@ -115,7 +116,9 @@ class _OnbordingState extends State<Onbording> {
                   SizedBox(height: 25.h),
                   RestBut(
                     onPressTerOfSer: () {},
-                    onPressRest: () {},
+                    onPressRest: () {
+                      restoreWeightburnerPinjcdv(context);
+                    },
                     onPressPriPol: () {},
                   ),
                 ],
