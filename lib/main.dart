@@ -11,6 +11,7 @@ import 'package:weightburner_119/core/con_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
+import 'package:weightburner_119/splash/splash_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      child: const WbBottomBar(), // SplashScreen(),
+      child: const SplashScreen(),
     );
   }
 }

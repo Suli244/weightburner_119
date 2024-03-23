@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_swipe_button/flutter_swipe_button.dart';
 import 'package:weightburner_119/challenges/logic/cubit/challenges_cubit.dart';
 import 'package:weightburner_119/challenges/logic/model/challenges_hive_model.dart';
 import 'package:weightburner_119/challenges/widget/challenges_widget.dart';
