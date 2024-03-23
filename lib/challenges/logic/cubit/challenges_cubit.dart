@@ -22,8 +22,8 @@ class ChallengesCubit extends Cubit<ChallengesState> {
     }
   }
 
-  Future<void> saveStarChallenges(int id) async {
-    await repo.saveChallengeButton(id);
+  Future<void> saveChallengeButton(int id, int sss) async {
+    await repo.saveChallengeButton(id, sss);
     getChallenges();
   }
 

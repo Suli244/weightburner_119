@@ -211,14 +211,21 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                           : WbColors.blue009AFF.withOpacity(0.6),
                       onSwipe: widget.model[index].chekDay == true
                           ? () async {
-                              await bloc
-                                  .saveStarChallenges(widget.model[index].id);
+                              int sss = widget.model[index].daysLeft;
+                              if (widget.model[index].daysLeft >=
+                                  widget.model[index].daysPassed) {
+                                sss = 0;
+                              } else {
+                                sss = sss + 1;
+                              }
+                              await bloc.saveChallengeButton(
+                                  widget.model[index].id, sss);
                               widget.onTTT('');
                             }
                           : () {},
                       child: Center(
                         child: Text(
-                          "Complete day ${widget.model[index].daysLeft}",
+                          "Complete day ${widget.model[index].daysLeft+1}",
                           style: TextStyle(
                             fontSize: 16.h,
                             fontWeight: FontWeight.w700,
