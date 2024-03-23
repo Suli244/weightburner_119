@@ -101,9 +101,11 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8.r, vertical: 4.r),
                             decoration: BoxDecoration(
-                                color:
-                                    widget.model[index].daysLeft >= innerIndex
-                                        ? WbColors.blue009AFF
+                                color: widget.model[index].daysLeft ==
+                                        innerIndex
+                                    ? WbColors.blue009AFF
+                                    : widget.model[index].daysLeft > innerIndex
+                                        ? Colors.transparent
                                         : Colors.transparent,
                                 borderRadius: BorderRadius.circular(12.r)),
                             child: Column(
@@ -113,14 +115,34 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                                   width: 24.w,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
+                                    color: widget.model[index].daysLeft ==
+                                            innerIndex
+                                        ? Colors.transparent
+                                        : widget.model[index].daysLeft >
+                                                innerIndex
+                                            ? WbColors.blue009AFF
+                                            : Colors.transparent,
                                     border: Border.all(
                                       width: 2,
-                                      color: widget.model[index].daysLeft >=
+                                      color: widget.model[index].daysLeft ==
                                               innerIndex
                                           ? WbColors.white
-                                          : WbColors.black.withOpacity(0.6),
+                                          : widget.model[index].daysLeft >
+                                                  innerIndex
+                                              ? WbColors.blue009AFF
+                                              : WbColors.black.withOpacity(0.6),
                                     ),
                                   ),
+                                  child:
+                                      widget.model[index].daysLeft > innerIndex
+                                          ? Center(
+                                              child: Icon(
+                                                Icons.check,
+                                                size: 20.r,
+                                                color: WbColors.white,
+                                              ),
+                                            )
+                                          : const SizedBox(),
                                 ),
                                 SizedBox(height: 6.h),
                                 Text(
@@ -128,10 +150,13 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                                   style: TextStyle(
                                     fontSize: 16.h,
                                     fontWeight: FontWeight.w500,
-                                    color: widget.model[index].daysLeft >=
+                                    color: widget.model[index].daysLeft ==
                                             innerIndex
                                         ? WbColors.whitEEEAEA
-                                        : WbColors.black.withOpacity(0.6),
+                                        : widget.model[index].daysLeft >
+                                                innerIndex
+                                            ? WbColors.black.withOpacity(0.6)
+                                            : WbColors.black.withOpacity(0.6),
                                   ),
                                 ),
                               ],
@@ -160,7 +185,7 @@ class _ChallengesWidgetState extends State<ChallengesWidget> {
                     },
                     child: Center(
                       child: Text(
-                        "Complete day 1",
+                        "Complete day ${widget.model[index].daysLeft}",
                         style: TextStyle(
                           fontSize: 16.h,
                           fontWeight: FontWeight.w700,
