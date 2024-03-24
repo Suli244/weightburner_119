@@ -32,11 +32,12 @@ class _WorkoutStartState extends State<WorkoutStart> {
   int exercises = 0;
   int calories = 0;
   int dayCal = 0;
-
+  bool hasSavedToday = false;
   Future<void> _loadCompletedDays() async {
     int day = await getDay();
     setState(() {
       dayCal = day;
+      hasSavedToday = dayCal == DateTime.now().day;
     });
   }
 
@@ -142,6 +143,21 @@ class _WorkoutStartState extends State<WorkoutStart> {
   String minutesConvertMain(int seconds) {
     Duration clockTimer = Duration(seconds: seconds);
     return '${clockTimer.inMinutes.remainder(60).toString().padLeft(2, '0')}:${clockTimer.inSeconds.remainder(60).toString().padLeft(2, '0')}';
+  }
+
+  void handleFinish() async {
+    if (!hasSavedToday) {
+      dayCal = dayCal + 1;
+      await setDay(dayCal);
+      hasSavedToday = true; // Update flag to prevent further saves
+
+      setState(() {}); // Refresh UI to reflect save status
+
+      // ... (other code for navigation and calorie update)
+    } else {
+      // Handle the case where saving has already occurred today
+      // (e.g., display a message to the user)
+    }
   }
 
   void handlePageChange(int newPageIndex) {
@@ -273,42 +289,39 @@ class _WorkoutStartState extends State<WorkoutStart> {
                       SizedBox(height: 12.h),
                       WbMotion(
                         onPressed: () async {
-                          if (isActive) {
-                            if (currantPage == widget.model.podr.length - 1) {
-                              dayCal = dayCal + 1;
-                              await setDay(dayCal);
-                              timerMain.cancel();
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (_, __, ___) =>
-                                      const WbBottomBar(),
-                                  transitionsBuilder: (context, animation,
-                                      secondaryAnimation, child) {
-                                    const begin = Offset(-1.0, 0.0);
-                                    const end = Offset.zero;
-                                    const curve = Curves.easeInOut;
-                                    var tween = Tween(begin: begin, end: end)
-                                        .chain(CurveTween(curve: curve));
-                                    var offsetAnimation =
-                                        animation.drive(tween);
-                                    return SlideTransition(
-                                        position: offsetAnimation,
-                                        child: child);
-                                  },
-                                ),
-                                (route) => false,
-                              );
-                              calories = calories +
-                                  widget.model.podr[currantPage].kcal;
-                              await setCalories(calories);
-                            } else {
-                              controller.nextPage(
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.ease,
-                              );
-                            }
+                          // if (isActive) {
+                          if (currantPage == widget.model.podr.length - 1) {
+                            handleFinish();
+                            timerMain.cancel();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) =>
+                                    const WbBottomBar(),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(-1.0, 0.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.easeInOut;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+                                  return SlideTransition(
+                                      position: offsetAnimation, child: child);
+                                },
+                              ),
+                              (route) => false,
+                            );
+                            calories =
+                                calories + widget.model.podr[currantPage].kcal;
+                            await setCalories(calories);
+                          } else {
+                            controller.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.ease,
+                            );
                           }
+                          // }
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
