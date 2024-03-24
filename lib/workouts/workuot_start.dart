@@ -32,12 +32,14 @@ class _WorkoutStartState extends State<WorkoutStart> {
   int exercises = 0;
   int calories = 0;
   int dayCal = 0;
-  bool hasSavedToday = false;
+  int dayLimit = 0;
+
   Future<void> _loadCompletedDays() async {
     int day = await getDay();
+    int dayL = await getDayLimit();
     setState(() {
       dayCal = day;
-      hasSavedToday = dayCal == DateTime.now().day;
+      dayLimit = dayL;
     });
   }
 
@@ -146,18 +148,12 @@ class _WorkoutStartState extends State<WorkoutStart> {
   }
 
   void handleFinish() async {
-    if (!hasSavedToday) {
+    if (dayLimit != DateTime.now().day) {
       dayCal = dayCal + 1;
       await setDay(dayCal);
-      hasSavedToday = true; // Update flag to prevent further saves
-
-      setState(() {}); // Refresh UI to reflect save status
-
-      // ... (other code for navigation and calorie update)
-    } else {
-      // Handle the case where saving has already occurred today
-      // (e.g., display a message to the user)
-    }
+      await setDayLimit(DateTime.now().day);
+      setState(() {});
+    } else {}
   }
 
   void handlePageChange(int newPageIndex) {
@@ -292,8 +288,6 @@ class _WorkoutStartState extends State<WorkoutStart> {
                           if (isActive) {
                             if (currantPage ==
                                 widget.model.ponsmvasa.length - 1) {
-                              // dayCal = dayCal + 1;
-                              // await setDay(dayCal);
                               handleFinish();
                               timerMain.cancel();
                               Navigator.pushAndRemoveUntil(
@@ -327,7 +321,6 @@ class _WorkoutStartState extends State<WorkoutStart> {
                               );
                             }
                           }
-                          // }
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,

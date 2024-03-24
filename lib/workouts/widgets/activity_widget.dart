@@ -35,8 +35,10 @@ class _ActivityWidgetState extends State<ActivityWidget> {
     int steps = await getSteps();
     setState(() {
       stepInt = steps;
-      stepInt = getRandomSteps();
+      stepInt = stepInt + getRandomSteps();
     });
+
+    await setSteps(stepInt);
   }
 
   @override
@@ -69,20 +71,6 @@ class _ActivityWidgetState extends State<ActivityWidget> {
             ),
           ),
           SizedBox(height: 8.h),
-          //////////Calendar//////////////
-          // SingleChildScrollView(
-          //   scrollDirection: Axis.horizontal,
-          //   child: Row(
-          //     children: Day.values.map((day) {
-          //       final isCompleted = completedDays[day] ?? false;
-          //       return CalendarDay(
-          //         day: day,
-          //         isCompleted: isCompleted,
-          //         onMarkCompleted: () => _markDayCompleted(day),
-          //       );
-          //     }).toList(),
-          //   ),
-          // ),
           SingleChildScrollView(
             child: SizedBox(
               height: 62.h,
@@ -270,4 +258,14 @@ Future<int> getDay() async {
 Future<void> setDay(int days) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setInt('Day', days);
+}
+
+Future<int> getDayLimit() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('DayLimit') ?? 0;
+}
+
+Future<void> setDayLimit(int limit) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('DayLimit', limit);
 }
