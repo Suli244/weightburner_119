@@ -169,7 +169,6 @@ class _WorkoutPageState extends State<WorkoutPage> {
               WbMotion(
                 onPressed: () {
                   if (level.isNotEmpty) {
-                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
