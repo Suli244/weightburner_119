@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:weightburner_119/scanner/model/food_model.dart';
+import 'package:weightburner_119/scanner/model/footmocas.dart';
 part 'scanner_c_state.dart';
 part 'scanner_c_cubit.freezed.dart';
 

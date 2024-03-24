@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:weightburner_119/assessment/pages/assess_weight_screen.dart';
 import 'package:weightburner_119/assessment/widgets/app_unfocuser.dart';
-import 'package:weightburner_119/assessment/widgets/custom_text_fields.dart';
+import 'package:weightburner_119/assessment/widgets/custom_text_fields_canscascs.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 

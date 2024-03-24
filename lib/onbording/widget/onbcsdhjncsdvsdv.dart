@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OnBoardingItem extends StatelessWidget {
-  const OnBoardingItem({
+class OnBoardingItemKjbcasc extends StatelessWidget {
+  const OnBoardingItemKjbcasc({
     super.key,
     required this.imageOnBoar,
     required this.titleOnBoar,

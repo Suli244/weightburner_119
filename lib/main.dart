@@ -10,9 +10,12 @@ import 'package:weightburner_119/challenges/logic/repositories/challenges_repo.d
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
+import 'package:weightburner_119/settings/weightburner_adasaklnsa.dart';
 import 'package:weightburner_119/splash/splash_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await WeightburnerAdapty().initializeWeightburnerAdapty();
   await Hive.initFlutter();
   Hive.registerAdapter(HiveDataAdapter());
   Hive.registerAdapter(HiveScannerAdapter());
@@ -48,7 +51,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      child: const SplashScreen(),
+      child: const SplashScreenYTvabcas(),
     );
   }
 }

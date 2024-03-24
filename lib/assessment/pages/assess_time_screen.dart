@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data_box.dart';
-import 'package:weightburner_119/core/con_bar.dart';
+import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 

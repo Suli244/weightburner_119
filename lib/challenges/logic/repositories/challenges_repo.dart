@@ -20,10 +20,10 @@ class ChallengesRepoImpl implements ChallengesRepo {
   saveChallengeButton(int id, int sss) async {
     final challengesBox =
         await Hive.openBox<ChallengesContent>('ChallengesBox');
-    final model = challengesBox.values.toList().singleWhere((e) => e.id == id);
-    model.daysLeft = sss;
-    model.chekDay = false;
-    model.save();
+    final dsdsvpsvdfb = challengesBox.values.toList().singleWhere((e) => e.id == id);
+    dsdsvpsvdfb.daysLeft = sss;
+    dsdsvpsvdfb.chekDay = false;
+    dsdsvpsvdfb.save();
   }
 
   @override

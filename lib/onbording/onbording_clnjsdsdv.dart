@@ -7,18 +7,19 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
-import 'package:weightburner_119/onbording/widget/onboarding_item_widget.dart';
+import 'package:weightburner_119/onbording/widget/onbcsdhjncsdvsdv.dart';
 import 'package:weightburner_119/onbording/widget/rest_wid.dart';
-import 'package:weightburner_119/premium/premium_screen.dart';
+import 'package:weightburner_119/premium/prencsdsnvcds.dart';
+import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
-class Onbording extends StatefulWidget {
-  const Onbording({super.key});
+class OnbordingLajbcascas extends StatefulWidget {
+  const OnbordingLajbcascas({super.key});
 
   @override
-  State<Onbording> createState() => _OnbordingState();
+  State<OnbordingLajbcascas> createState() => _OnbordingLajbcascasState();
 }
 
-class _OnbordingState extends State<Onbording> {
+class _OnbordingLajbcascasState extends State<OnbordingLajbcascas> {
   final PageController controller = PageController();
   int currantPage = 0;
 
@@ -36,19 +37,19 @@ class _OnbordingState extends State<Onbording> {
               });
             },
             children: const [
-              OnBoardingItem(
+              OnBoardingItemKjbcasc(
                 imageOnBoar: 'assets/images/onbo_one.png',
                 titleOnBoar: 'Effective Workouts',
                 desOnBoar:
                     'Choose and perform workouts based \non your fitness level',
               ),
-              OnBoardingItem(
+              OnBoardingItemKjbcasc(
                 imageOnBoar: 'assets/images/onbo_two.png',
                 titleOnBoar: 'Food Scanner',
                 desOnBoar:
                     'Scan the product by barcode and \nmonitor your nutrition',
               ),
-              OnBoardingItem(
+              OnBoardingItemKjbcasc(
                 imageOnBoar: 'assets/images/onbo_trhee.png',
                 titleOnBoar: 'Habit Testing',
                 desOnBoar:
@@ -81,7 +82,7 @@ class _OnbordingState extends State<Onbording> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const PremiumScreen(),
+                            builder: (context) => const Ljbvasdsdvsd(),
                           ),
                           (protected) => false,
                         );
@@ -115,7 +116,9 @@ class _OnbordingState extends State<Onbording> {
                   SizedBox(height: 25.h),
                   RestBut(
                     onPressTerOfSer: () {},
-                    onPressRest: () {},
+                    onPressRest: () {
+                      restoreWeightburnerPinjcdv(context);
+                    },
                     onPressPriPol: () {},
                   ),
                 ],

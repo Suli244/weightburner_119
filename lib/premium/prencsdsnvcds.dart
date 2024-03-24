@@ -1,19 +1,38 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
-import 'package:weightburner_119/core/con_bar.dart';
+import 'package:weightburner_119/core/constcgubca_bar.dart';
+import 'package:weightburner_119/core/urls.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 import 'package:weightburner_119/onbording/widget/rest_wid.dart';
+import 'package:weightburner_119/settings/weightburner_adasaklnsa.dart';
+import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
-class PremiumScreen extends StatefulWidget {
-  const PremiumScreen({super.key, this.isClose = false});
+class Ljbvasdsdvsd extends StatefulWidget {
+  const Ljbvasdsdvsd({super.key, this.isClose = false});
   final bool isClose;
   @override
-  State<PremiumScreen> createState() => _PremiumScreenState();
+  State<Ljbvasdsdvsd> createState() => _LjbvasdsdvsdState();
 }
 
-class _PremiumScreenState extends State<PremiumScreen> {
+class _LjbvasdsdvsdState extends State<Ljbvasdsdvsd> {
+  Future<void> weightburnerPurchase() async {
+    final weightburnerPaywall = await WeightburnerAdapty().weightburnerGetPaywall(DocFF.poawjfncs);
+    if (weightburnerPaywall == null) return;
+    final weightburnerProducts =
+        await WeightburnerAdapty().weightburnerGetPaywallProducts(weightburnerPaywall);
+    if (weightburnerProducts == null) return;
+    if (kDebugMode) log('Weightburner');
+
+    await WeightburnerAdapty().weightburnerMakePurchase(weightburnerProducts.first);
+  }
+
+  bool majsnss = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,24 +130,23 @@ class _PremiumScreenState extends State<PremiumScreen> {
                   ),
                   SizedBox(height: 20.h),
                   WbMotion(
-                    onPressed: () {
-                      if (widget.isClose) {
+                    onPressed: () async {
+                      setState(() => majsnss = true);
+                      await weightburnerPurchase();
+                      final hasPremiumStatusSmartTrader =
+                          await WeightburnerAdapty().weightburnerHasPremiumStatus();
+                      if (hasPremiumStatusSmartTrader) {
+                        await setWeightburnerPinjcdv();
+                        // ignore: use_build_context_synchronously
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const WbBottomBar(),
+                            builder: (_) => const WbBottomBar(),
                           ),
-                          (protected) => false,
-                        );
-                      } else {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AssessNameScreen(),
-                          ),
-                          (protected) => false,
+                          (route) => false,
                         );
                       }
+                      setState(() => majsnss = false);
                     },
                     child: Container(
                       height: 52.h,
@@ -138,22 +156,29 @@ class _PremiumScreenState extends State<PremiumScreen> {
                         color: WbColors.blue009AFF,
                       ),
                       child: Center(
-                        child: Text(
-                          'Buy Premium for \$0,99',
-                          style: TextStyle(
-                            fontSize: 18.h,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white,
-                            height: 0,
-                          ),
-                        ),
+                        child: majsnss
+                            ? const CircularProgressIndicator(
+                                valueColor:
+                                    AlwaysStoppedAnimation(Colors.white),
+                              )
+                            : Text(
+                                'Buy Premium for \$0,99',
+                                style: TextStyle(
+                                  fontSize: 18.h,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                  height: 0,
+                                ),
+                              ),
                       ),
                     ),
                   ),
                   SizedBox(height: 25.h),
                   RestBut(
                     onPressTerOfSer: () {},
-                    onPressRest: () {},
+                    onPressRest: () {
+                      restoreWeightburnerPinjcdv(context);
+                    },
                     onPressPriPol: () {},
                   ),
                 ],
