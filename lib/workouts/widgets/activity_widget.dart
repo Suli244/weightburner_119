@@ -16,16 +16,26 @@ class ActivityWidget extends StatefulWidget {
 
 class _ActivityWidgetState extends State<ActivityWidget> {
   int dayCal = 0;
+  int stepInt = 0;
   @override
   void initState() {
     super.initState();
     _loadCompletedDays();
+    _loadCompletedSteps();
   }
 
   Future<void> _loadCompletedDays() async {
     int day = await getDay();
     setState(() {
       dayCal = day;
+    });
+  }
+
+  Future<void> _loadCompletedSteps() async {
+    int steps = await getSteps();
+    setState(() {
+      stepInt = steps;
+      stepInt = getRandomSteps();
     });
   }
 
@@ -203,7 +213,7 @@ class _ActivityWidgetState extends State<ActivityWidget> {
                 ),
                 const Spacer(),
                 Text(
-                  '${getRandomSteps()}',
+                  '$stepInt',
                   style: TextStyle(
                     fontSize: 16.h,
                     fontWeight: FontWeight.w700,
@@ -229,7 +239,7 @@ List<String> listDays = [
   'S',
 ];
 int getRandomSteps() {
-  return Random().nextInt(2500 - 200) + 200;
+  return Random().nextInt(50 - 20) + 20;
 }
 
 Future<int> getCalories() async {
@@ -240,6 +250,16 @@ Future<int> getCalories() async {
 Future<void> setCalories(int calories) async {
   final prefs = await SharedPreferences.getInstance();
   prefs.setInt('Calories', calories);
+}
+
+Future<int> getSteps() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('Steps') ?? 0;
+}
+
+Future<void> setSteps(int steps) async {
+  final prefs = await SharedPreferences.getInstance();
+  prefs.setInt('Steps', steps);
 }
 
 Future<int> getDay() async {

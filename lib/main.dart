@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         create: (context) => ChallengesCubit(ChallengesRepoImpl()),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'WeightBurner',
+          title: 'Inter',
           home: child,
           theme: ThemeData(
             splashColor: Colors.transparent,

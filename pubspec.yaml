@@ -54,6 +54,8 @@ dependencies:
   dio: ^5.4.1
   flutter_swipe_button: ^2.1.1+1
   adapty_flutter: ^2.9.0
+  in_app_review: ^2.0.8
+  share_plus: ^7.2.2
 
 dev_dependencies:
   flutter_test:

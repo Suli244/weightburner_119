@@ -256,8 +256,8 @@ class _WorkoutStartState extends State<WorkoutStart> {
                             });
                           },
                           controller: controller,
-                          children:
-                              List.generate(widget.model.ponsmvasa.length, (index) {
+                          children: List.generate(widget.model.ponsmvasa.length,
+                              (index) {
                             return Padding(
                               padding: EdgeInsets.symmetric(horizontal: 4.r),
                               child: Column(
@@ -290,9 +290,11 @@ class _WorkoutStartState extends State<WorkoutStart> {
                       WbMotion(
                         onPressed: () async {
                           if (isActive) {
-                            if (currantPage == widget.model.ponsmvasa.length - 1) {
-                              dayCal = dayCal + 1;
-                              await setDay(dayCal);
+                            if (currantPage ==
+                                widget.model.ponsmvasa.length - 1) {
+                              // dayCal = dayCal + 1;
+                              // await setDay(dayCal);
+                              handleFinish();
                               timerMain.cancel();
                               Navigator.pushAndRemoveUntil(
                                 context,
