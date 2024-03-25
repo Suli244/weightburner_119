@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:weightburner_119/assessment/hive_data_profil/hive_data.dart';
+import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
 import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/onbording/onbording_clnjsdsdv.dart';
@@ -63,14 +66,26 @@ class _SplashScreenYTvabcasState extends State<SplashScreenYTvabcas> {
             throw Exception(e);
           }
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const WbBottomBar(
-                indexScr: 0,
+          final hiveDataProfile = await Hive.openBox<HiveData>('box');
+          var dsd = hiveDataProfile.values.toList();
+
+          if (dsd.isEmpty) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AssessNameScreen(),
               ),
-            ),
-          );
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const WbBottomBar(
+                  indexScr: 0,
+                ),
+              ),
+            );
+          }
         }
       },
     );
