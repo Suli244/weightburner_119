@@ -5,6 +5,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
+import 'package:weightburner_119/burner/yyyyyyyyy.dart';
 import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/onbording/onbording_clnjsdsdv.dart';
@@ -17,9 +18,14 @@ class SplashScreenYTvabcas extends StatefulWidget {
 }
 
 class _SplashScreenYTvabcasState extends State<SplashScreenYTvabcas> {
+  bool? jowehvonre;
   @override
   void initState() {
-    firstOpen();
+    yyyyyyyy(context, (val) {
+      setState(() {
+        jowehvonre = val;
+      });
+    });
     super.initState();
   }
 
