@@ -1,8 +1,8 @@
 PODS:
-  - Adapty (2.10.1)
-  - adapty_flutter (2.10.0):
-    - Adapty (= 2.10.1)
+  - apphud (2.4.4):
+    - ApphudSDK (= 3.2.8)
     - Flutter
+  - ApphudSDK (3.2.8)
   - battery_plus (1.0.0):
     - Flutter
   - connectivity_plus (0.0.1):
@@ -85,7 +85,7 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - adapty_flutter (from `.symlinks/plugins/adapty_flutter/ios`)
+  - apphud (from `.symlinks/plugins/apphud/ios`)
   - battery_plus (from `.symlinks/plugins/battery_plus/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - country_codes (from `.symlinks/plugins/country_codes/ios`)
@@ -106,13 +106,13 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Adapty
+    - ApphudSDK
     - OneSignalXCFramework
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
-  adapty_flutter:
-    :path: ".symlinks/plugins/adapty_flutter/ios"
+  apphud:
+    :path: ".symlinks/plugins/apphud/ios"
   battery_plus:
     :path: ".symlinks/plugins/battery_plus/ios"
   connectivity_plus:
@@ -149,8 +149,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  Adapty: 8458d44e75607e38da8845ba40893d53b51ae409
-  adapty_flutter: d1336eec102bb3e11de83715e661a934df76fd67
+  apphud: 1f6177886a68aae8a3e7b3ccff345c782cf36896
+  ApphudSDK: c1eb87b784a604cff0461112b594cd68a91fc7f6
   battery_plus: 091633b7f01cb33dfc4aeedb450816f4d33818fa
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   country_codes: b0900f46ad686281d5dab438e354e44ad10f5941

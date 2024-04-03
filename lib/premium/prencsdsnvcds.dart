@@ -1,7 +1,4 @@
-import 'dart:developer';
-
 import 'package:apphud/apphud.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
