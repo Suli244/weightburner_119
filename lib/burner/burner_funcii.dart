@@ -74,7 +74,7 @@ Future<bool> burnerIsInternetConnected() async {
 Future<void> burnerBrowse(String ur) async {
   final url = Uri.parse(ur).normalizePath();
   if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-    throw Exception('Could not launch $url');
+    throw Exception('Sorry, $url not launch');
   }
 }
 

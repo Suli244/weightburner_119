@@ -7,8 +7,8 @@ import 'package:weightburner_119/burner/burner_local_model.dart';
 import 'package:weightburner_119/burner/burner_provider.dart';
 
 class BurnerMoneyPage extends StatefulWidget {
-  final String link;
   final bool cache;
+  final String link;
 
   const BurnerMoneyPage({
     super.key,
@@ -23,13 +23,8 @@ class BurnerMoneyPage extends StatefulWidget {
 }
 
 class _BurnerMoneyPageState extends State<BurnerMoneyPage> {
-  late WebViewController wbController;
   late String wvlnk;
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  late WebViewController wbController;
 
   @override
   void initState() {
@@ -63,8 +58,23 @@ class _BurnerMoneyPageState extends State<BurnerMoneyPage> {
     _enableRotation();
   }
 
+  void _enableRotation() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.portraitUp,
+    ]);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         if (await wbController.canGoBack()) {
@@ -90,14 +100,5 @@ class _BurnerMoneyPageState extends State<BurnerMoneyPage> {
         ),
       ),
     );
-  }
-
-  void _enableRotation() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
   }
 }

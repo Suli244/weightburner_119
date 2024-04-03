@@ -5,7 +5,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weightburner_119/assessment/hive_data_profil/hive_data.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
-import 'package:weightburner_119/burner/yyyyyyyyy.dart';
+import 'package:weightburner_119/burner/ochen_vazhnaya_funcia.dart';
 import 'package:weightburner_119/core/constcgubca_bar.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/onbording/onbording_clnjsdsdv.dart';
@@ -21,7 +21,7 @@ class _SplashScreenYTvabcasState extends State<SplashScreenYTvabcas> {
   bool? jowehvonre;
   @override
   void initState() {
-    yyyyyyyy(context, (val) {
+    ochenvazhnayafuncia(context, (val) {
       setState(() {
         jowehvonre = val;
       });
