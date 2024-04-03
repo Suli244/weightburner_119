@@ -13,14 +13,13 @@ import 'package:weightburner_119/core/urls.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner.dart';
 import 'package:weightburner_119/scanner/hive_scanner/hive_scanner_box.dart';
-import 'package:weightburner_119/settings/weightburner_adasaklnsa.dart';
 import 'package:weightburner_119/splash/splash_screen.dart';
+import 'package:apphud/apphud.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OneSignal.initialize(DocFF.signalchik);
   await OneSignal.Notifications.requestPermission(true);
-  await WeightburnerAdapty().initializeWeightburnerAdapty();
   await Hive.initFlutter();
   Hive.registerAdapter(HiveDataAdapter());
   Hive.registerAdapter(HiveScannerAdapter());
@@ -29,6 +28,7 @@ void main() async {
   hiveDataProfile = await Hive.openBox<HiveData>('box');
   hiveScanner = await Hive.openBox<HiveScanner>('boxScanner');
   runApp(const MyApp());
+   await Apphud.start(apiKey: DocFF.poawjfncs);
 }
 
 class MyApp extends StatelessWidget {

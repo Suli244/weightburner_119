@@ -1,15 +1,14 @@
 import 'dart:developer';
 
+import 'package:apphud/apphud.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:weightburner_119/assessment/pages/assess_name_screen.dart';
 import 'package:weightburner_119/core/constcgubca_bar.dart';
-import 'package:weightburner_119/core/urls.dart';
 import 'package:weightburner_119/core/wb_colors.dart';
 import 'package:weightburner_119/core/wb_motin.dart';
 import 'package:weightburner_119/onbording/widget/rest_wid.dart';
-import 'package:weightburner_119/settings/weightburner_adasaklnsa.dart';
 import 'package:weightburner_119/settings/weightburner_prevkdv.dart';
 
 class Ljbvasdsdvsd extends StatefulWidget {
@@ -20,17 +19,6 @@ class Ljbvasdsdvsd extends StatefulWidget {
 }
 
 class _LjbvasdsdvsdState extends State<Ljbvasdsdvsd> {
-  Future<void> weightburnerPurchase() async {
-    final weightburnerPaywall = await WeightburnerAdapty().weightburnerGetPaywall(DocFF.poawjfncs);
-    if (weightburnerPaywall == null) return;
-    final weightburnerProducts =
-        await WeightburnerAdapty().weightburnerGetPaywallProducts(weightburnerPaywall);
-    if (weightburnerProducts == null) return;
-    if (kDebugMode) log('Weightburner');
-
-    await WeightburnerAdapty().weightburnerMakePurchase(weightburnerProducts.first);
-  }
-
   bool majsnss = false;
 
   @override
@@ -131,22 +119,31 @@ class _LjbvasdsdvsdState extends State<Ljbvasdsdvsd> {
                   SizedBox(height: 20.h),
                   WbMotion(
                     onPressed: () async {
-                      setState(() => majsnss = true);
-                      await weightburnerPurchase();
-                      final hasPremiumStatusSmartTrader =
-                          await WeightburnerAdapty().weightburnerHasPremiumStatus();
-                      if (hasPremiumStatusSmartTrader) {
-                        await setWeightburnerPinjcdv();
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const WbBottomBar(),
-                          ),
-                          (route) => false,
-                        );
-                      }
-                      setState(() => majsnss = false);
+                      setState(() {
+                        majsnss = true;
+                      });
+                      final apphudPaywalls = await Apphud.paywalls();
+                      // print(apphudPaywalls?.paywalls.first.products?.first);
+                      await Apphud.purchase(
+                        product: apphudPaywalls?.paywalls.first.products?.first,
+                      ).whenComplete(
+                        () async {
+                          if (await Apphud.hasPremiumAccess() ||
+                              await Apphud.hasActiveSubscription()) {
+                            await setWeightburnerPinjcdv();
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const WbBottomBar(),
+                              ),
+                              (route) => false,
+                            );
+                          }
+                        },
+                      );
+                      setState(() {
+                        majsnss = false;
+                      });
                     },
                     child: Container(
                       height: 52.h,
