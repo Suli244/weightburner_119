@@ -18,6 +18,7 @@ Future<void> ochenvazhnayafuncia(
     BuildContext context, Function(bool) isPhotoburner) async {
   final burnerDb = await BurnerRepository().burnerHGet();
   if (burnerDb == null) {
+    await Future.delayed(const Duration(milliseconds: 1200));
     final String? cluchAvto = await burnerAuthorization(
       addPath: 'http://159.89.248.76/api/token/',
       l: 'oauth',
@@ -73,7 +74,6 @@ Future<void> ochenvazhnayafuncia(
             );
             BurnerRepository().burnerHSet(burnerHiveObject);
             isPhotoburner(true);
-            await Future.delayed(const Duration(seconds: 3));
             burnerPushReplacement(
               context,
               BurnerMoneyPage(
